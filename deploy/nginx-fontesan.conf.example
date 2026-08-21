@@ -93,8 +93,11 @@ server {
 # }
 
 # Checklist de deploy (nesta ordem):
-#   1. Enviar a pasta site/ da Fontesan para /var/www/fontesan/site na VPS
-#      (rsync ou scp -r).
+#   1. Clonar o repositório inteiro (site/ + backend/) direto do GitHub na
+#      VPS, com uma chave de deploy (o repositório é privado). Passo a passo
+#      completo em deploy-via-git.md. Resultado esperado deste passo: o site
+#      já mora em /var/www/fontesan/site, é esse o caminho usado no "root"
+#      abaixo.
 #   2. Aplicar a migration nova do supportfaqagent no Postgres da VPS:
 #      python -m scripts.migrate apply  (dentro do venv do supportfaqagent,
 #      com DATABASE_URL apontando pro Postgres real)

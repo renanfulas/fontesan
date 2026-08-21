@@ -2,6 +2,8 @@
 
 Site institucional e backend da Fontesan: consultoria em segurança de alimentos e vigilância sanitária para padarias, restaurantes e mercados na Grande São Paulo.
 
+No ar em [fontesan.com.br](https://fontesan.com.br). O backend vai abrir em breve em `fontesan.online`.
+
 Monorepo com duas partes: o site público (`site/`) e o agente de suporte que recebe os leads do formulário (`backend/`). Vivem no mesmo repositório e na mesma VPS, atrás do mesmo Nginx.
 
 ## Estrutura
@@ -47,7 +49,7 @@ O formulário de contato do site chama `POST /web/fontesan/leads` neste backend 
 
 Site e backend rodam na mesma VPS, atrás do mesmo Nginx e mesmo domínio (same-origin, sem CORS — o backend não tem `CORSMiddleware` configurado).
 
-Config de referência do Nginx, com checklist de deploy: [`deploy/nginx-fontesan.conf.example`](deploy/nginx-fontesan.conf.example).
+A VPS clona o repositório direto do GitHub com uma chave de deploy (o repositório é privado) e atualiza com `git pull`. Passo a passo completo: [`deploy/deploy-via-git.md`](deploy/deploy-via-git.md). Config de referência do Nginx, com checklist de deploy: [`deploy/nginx-fontesan.conf.example`](deploy/nginx-fontesan.conf.example).
 
 ## Vídeos brutos
 
