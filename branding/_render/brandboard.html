@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Brand board Fontesan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Public+Sans:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--creme:#f5eee1;--painel:#fbf7ee;--deep:#16281c;--ink:#1f3826;--sec:#5d6d54;--accent:#d9821b;--accent-ink:#9c5a0d;--creme-esc:#f2ecdd}
+*{margin:0;box-sizing:border-box}
+body{background:#aaa;font-family:'Public Sans',sans-serif;padding:20px}
+.board{width:1600px;background:var(--creme);padding:0 0 70px}
+.mono{font-family:'IBM Plex Mono',monospace}
+.disp{font-family:'Fraunces',serif}
+img{display:block}
+.kick{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.3em;color:var(--accent-ink);text-transform:uppercase}
+.sec{padding:0 70px;margin-top:64px}
+.sec-title{display:flex;align-items:baseline;gap:18px;margin-bottom:26px}
+.sec-title .n{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.24em;color:var(--sec)}
+.sec-title h2{font-family:'Fraunces',serif;font-weight:600;font-size:26px;color:var(--ink)}
+.sec-title .rule{flex:1;border-top:2px dashed rgba(31,56,38,.25)}
+
+/* capa */
+.capa{background:var(--deep);padding:70px;display:flex;align-items:center;gap:70px}
+.capa .t{flex:1}
+.capa h1{font-family:'Fraunces',serif;font-weight:600;font-size:62px;color:var(--creme-esc);line-height:1.08}
+.capa p{color:#c9c2ad;font-size:19px;margin-top:20px;max-width:60ch;line-height:1.6}
+.capa .tag{font-family:'IBM Plex Mono',monospace;font-size:12.5px;letter-spacing:.3em;color:var(--accent);margin-bottom:26px}
+
+/* palavra */
+.palavra{background:var(--painel);border:1.5px dashed rgba(31,56,38,.3);border-radius:22px;padding:38px 44px;display:flex;align-items:center;gap:44px}
+.palavra .w{font-family:'Fraunces',serif;font-weight:600;font-size:70px;color:var(--ink);line-height:1}
+.palavra p{color:var(--sec);font-size:16.5px;line-height:1.65;max-width:62ch}
+
+/* logos */
+.grid-logos{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.cell{border-radius:16px;padding:28px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;min-height:210px}
+.cell.claro{background:var(--painel);border:1px solid rgba(31,56,38,.14)}
+.cell.escuro{background:var(--deep)}
+.cell .lab{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.16em;color:var(--sec)}
+.cell.escuro .lab{color:rgba(242,236,221,.6)}
+
+/* cores */
+.cores{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.cor{border-radius:14px;overflow:hidden;border:1px solid rgba(31,56,38,.14)}
+.cor .sw{height:96px}
+.cor .info{background:var(--painel);padding:12px 14px}
+.cor .nome{font-weight:600;font-size:13.5px;color:var(--ink)}
+.cor .hex{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--sec);margin-top:3px}
+
+/* tipografia */
+.tipo{display:grid;grid-template-columns:1fr 1fr 1fr;gap:22px}
+.tipo .box{background:var(--painel);border:1px solid rgba(31,56,38,.14);border-radius:16px;padding:26px}
+.tipo .amostra{color:var(--ink);line-height:1.1;margin:10px 0 14px}
+.tipo .meta{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--sec);line-height:1.7}
+
+/* fotografia */
+.fotos{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.fotos img{width:100%;height:150px;object-fit:cover;border-radius:12px}
+
+/* aplicações */
+.apps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;align-items:start}
+.apps img{width:100%;border-radius:14px;border:1px solid rgba(31,56,38,.12)}
+
+/* voz */
+.voz{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.voz .b{background:var(--painel);border:1px solid rgba(31,56,38,.14);border-radius:16px;padding:26px 28px}
+.voz .b.n{background:transparent;border-style:dashed;opacity:.75}
+.voz .t{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.2em;margin-bottom:12px}
+.voz .b .t{color:var(--accent-ink)}
+.voz .b.n .t{color:#8f2016}
+.voz .f{font-family:'Fraunces',serif;font-size:21px;color:var(--ink);line-height:1.4}
+.voz .b.n .f{color:var(--sec)}
+
+/* rodapé */
+.rodape{margin-top:60px;background:var(--deep);padding:38px 70px;display:flex;align-items:center;justify-content:space-between}
+.rodape .l{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.26em;color:var(--creme-esc)}
+.rodape .r{font-family:'IBM Plex Mono',monospace;font-size:11px;color:rgba(242,236,221,.55);text-align:right;line-height:1.9}
+</style>
+</head>
+<body>
+<div class="board shot" data-name="brandboard">
+
+  <!-- CAPA -->
+  <div class="capa">
+    <img src="../logos/selo-fundo-escuro.svg" width="230" height="230">
+    <div class="t">
+      <div class="tag">BRAND BOARD · 2026</div>
+      <h1>Fontesan</h1>
+      <p>Consultoria em segurança de alimentos e vigilância sanitária para padarias, restaurantes e mercados da Grande São Paulo.</p>
+    </div>
+  </div>
+
+  <!-- PALAVRA -->
+  <div class="sec">
+    <div class="sec-title"><span class="n">01</span><h2>A palavra da marca</h2><span class="rule"></span></div>
+    <div class="palavra">
+      <div class="w">Rotina</div>
+      <p>O que separa um negócio seguro de um risco não é um dia de faxina antes da visita do fiscal: é o que se repete todos os dias, no ponto certo. Rotina é a promessa, o método e o produto. O selo circular é o símbolo dela: um ciclo que se fecha e recomeça.</p>
+    </div>
+  </div>
+
+  <!-- MARCA -->
+  <div class="sec">
+    <div class="sec-title"><span class="n">02</span><h2>A marca</h2><span class="rule"></span></div>
+    <div class="grid-logos">
+      <div class="cell claro"><img src="../logos/logo-vertical.svg" width="180"><span class="lab">LOCKUP VERTICAL</span></div>
+      <div class="cell claro"><img src="../logos/selo.svg" width="132" height="132"><span class="lab">SELO COMPLETO</span></div>
+      <div class="cell claro"><img src="../logos/icone.svg" width="112" height="112"><span class="lab">ÍCONE</span></div>
+      <div class="cell escuro"><img src="../logos/icone-fundo-escuro.svg" width="112" height="112"><span class="lab">ÍCONE · FUNDO ESCURO</span></div>
+    </div>
+    <div class="grid-logos" style="margin-top:18px;grid-template-columns:1.6fr 1.6fr 1fr">
+      <div class="cell claro"><img src="../logos/logo-horizontal.svg" width="330"><span class="lab">LOCKUP HORIZONTAL</span></div>
+      <div class="cell escuro"><img src="../logos/logo-horizontal-fundo-escuro.svg" width="330"><span class="lab">LOCKUP · FUNDO ESCURO</span></div>
+      <div class="cell claro"><img src="../logos/icone-mono-preto.svg" width="112" height="112"><span class="lab">1 COR · CARIMBO</span></div>
+    </div>
+  </div>
+
+  <!-- CORES -->
+  <div class="sec">
+    <div class="sec-title"><span class="n">03</span><h2>Paleta, extraída dos próprios vídeos</h2><span class="rule"></span></div>
+    <div class="cores">
+      <div class="cor"><div class="sw" style="background:#f5eee1"></div><div class="info"><div class="nome">Creme</div><div class="hex">#F5EEE1 · fundo claro</div></div></div>
+      <div class="cor"><div class="sw" style="background:#16281c"></div><div class="info"><div class="nome">Verde profundo</div><div class="hex">#16281C · fundo de autoridade</div></div></div>
+      <div class="cor"><div class="sw" style="background:#1f3826"></div><div class="info"><div class="nome">Verde tinta</div><div class="hex">#1F3826 · marca e texto</div></div></div>
+      <div class="cor"><div class="sw" style="background:#d9821b"></div><div class="info"><div class="nome">Laranja cítrico</div><div class="hex">#D9821B · ação, em doses raras</div></div></div>
+    </div>
+  </div>
+
+  <!-- TIPOGRAFIA -->
+  <div class="sec">
+    <div class="sec-title"><span class="n">04</span><h2>Tipografia</h2><span class="rule"></span></div>
+    <div class="tipo">
+      <div class="box">
+        <div class="kick">DISPLAY</div>
+        <div class="amostra disp" style="font-weight:600;font-size:46px">Fraunces</div>
+        <div class="meta">Pesos 500 e 600<br>Serifa com calor de comida<br>e seriedade de instituição.</div>
+      </div>
+      <div class="box">
+        <div class="kick">CORPO</div>
+        <div class="amostra" style="font-weight:600;font-size:40px">Public Sans</div>
+        <div class="meta">Pesos 400 e 600<br>Sans de linhagem governamental:<br>a voz da norma, domesticada.</div>
+      </div>
+      <div class="box">
+        <div class="kick">MONO</div>
+        <div class="amostra mono" style="font-weight:500;font-size:33px">IBM Plex Mono</div>
+        <div class="meta">Pesos 400 e 500<br>Rótulos técnicos, registros,<br>carimbos e kickers.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VOZ -->
+  <div class="sec">
+    <div class="sec-title"><span class="n">05</span><h2>A voz</h2><span class="rule"></span></div>
+    <div class="voz">
+      <div class="b">
+        <div class="t">A MARCA FALA ASSIM</div>
+        <div class="f">“Deixamos a sua casa em dia com a vigilância, e ela continua em dia.”</div>
+      </div>
+      <div class="b n">
+        <div class="t">A MARCA NUNCA FALA ASSIM</div>
+        <div class="f">“Oferecemos soluções completas em compliance sanitário.”</div>
+      </div>
+      <div class="b">
+        <div class="t">A MARCA FALA ASSIM</div>
+        <div class="f">“Multa e interdição têm cura barata: começar antes.”</div>
+      </div>
+      <div class="b n">
+        <div class="t">A MARCA NUNCA FALA ASSIM</div>
+        <div class="f">“Evite penalidades severas do órgão fiscalizador.”</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOTOGRAFIA -->
+  <div class="sec">
+    <div class="sec-title"><span class="n">06</span><h2>Direção de fotografia</h2><span class="rule"></span></div>
+    <div class="fotos">
+      <img src="../fotografia/01-maos-escolhendo.jpg">
+      <img src="../fotografia/02-detalhe-preparo.jpg">
+      <img src="../fotografia/03-luvas-embalagem.jpg">
+      <img src="../fotografia/04-paleta-origem.jpg">
+      <img src="../fotografia/05-quem-come.jpg">
+    </div>
+    <div class="meta mono" style="font-size:11.5px;color:var(--sec);margin-top:14px;line-height:1.8">Mãos e gestos, nunca poses. Luz natural quente, fundos neutros, cor de alimento saturada naturalmente.<br>Proibido: banco de imagem com sorriso corporativo, cozinha impecável demais para ser real, filtro frio.</div>
+  </div>
+
+  <!-- APLICAÇÕES -->
+  <div class="sec">
+    <div class="sec-title"><span class="n">07</span><h2>Aplicações</h2><span class="rule"></span></div>
+    <div class="apps">
+      <img src="../assets-png/post-lancamento.png">
+      <img src="../assets-png/post-detalhe.png">
+      <img src="../assets-png/post-urgencia.png">
+    </div>
+    <div class="apps" style="margin-top:18px;grid-template-columns:1fr 1fr .62fr">
+      <img src="../assets-png/cartao-frente.png">
+      <img src="../assets-png/cartao-verso.png">
+      <img src="../assets-png/adesivo-casa-em-dia.png">
+    </div>
+  </div>
+
+  <!-- RODAPÉ -->
+  <div class="rodape">
+    <div class="l">EM DIA, TODO DIA.</div>
+    <div class="r">Fontesan · Segurança de alimentos e vigilância sanitária<br>Responsável técnica Giovanna Fontes Rios · CRN-3 67286</div>
+  </div>
+</div>
+
+<script>
+Promise.all([...document.images].map(i=>i.complete?1:new Promise(r=>{i.onload=r;i.onerror=r})))
+  .then(()=>document.fonts.ready)
+  .then(()=>setTimeout(()=>{document.title='FONTS-OK'},1200));
+</script>
+</body>
+</html>

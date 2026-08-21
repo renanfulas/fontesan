@@ -1,0 +1,9 @@
+# Bastidor da geração: o que dá para baixar de novo não precisa ser versionado.
+node_modules/
+package-lock.json
+fonts/
+
+# Provas visuais intermediárias (iterações do desenho e testes de validação).
+# O que vale está em ../assets-png/ e ../logos/.
+iteracoes-png/
+valida-png/

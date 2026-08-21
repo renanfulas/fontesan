@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <!-- Fontesan · marca oficial. Não distorcer, girar ou recolorir fora da paleta.
+       Versão 1 cor: carimbo, gravação, fax, impressão monocromática.
+       Texto convertido em curvas: não depende de fonte instalada. -->
+  <circle cx="256" cy="256" r="230" fill="none" stroke="#000000" stroke-width="22"/>
+  <g transform="translate(250 266) scale(.92) translate(-256 -256)">
+    <path d="M140 292 L224 372 L316 248" fill="none" stroke="#000000" stroke-width="46" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M316 248 C288 178 316 106 398 88 C406 170 376 228 316 248 Z" fill="#000000"/>
+    <path d="M326 226 L384 116" stroke="#ffffff" stroke-width="11" stroke-linecap="round" fill="none"/>
+  </g>
+</svg>

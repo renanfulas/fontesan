@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Valida SVG</title>
+<style>
+body{margin:0;background:#ddd;padding:20px}
+.shot{background:#f5eee1;padding:24px;display:flex;gap:24px;align-items:center;flex-wrap:wrap}
+.shot.dark{background:#16281c}
+img{display:block}
+</style>
+</head>
+<body>
+<!-- Carregados como <img>: o navegador trata cada SVG como documento isolado,
+     igual faria o Illustrator/Canva. Com as fontes bloqueadas na rede, só passa
+     quem tem o texto em curvas. -->
+<div class="shot" data-name="svg-claros">
+  <img src="../logos/icone.svg" width="150" height="150">
+  <img src="../logos/selo.svg" width="210" height="210">
+  <img src="../logos/logo-horizontal.svg" width="340">
+  <img src="../logos/logo-vertical.svg" width="240">
+  <img src="../logos/icone-mono-preto.svg" width="150" height="150">
+</div>
+<div class="shot dark" data-name="svg-escuros">
+  <img src="../logos/icone-fundo-escuro.svg" width="150" height="150">
+  <img src="../logos/selo-fundo-escuro.svg" width="210" height="210">
+  <img src="../logos/logo-horizontal-fundo-escuro.svg" width="340">
+</div>
+<div class="shot" data-name="svg-adesivo">
+  <img src="../logos/adesivo-casa-em-dia.svg" width="260" height="260">
+</div>
+<script>
+Promise.all([...document.images].map(i=>i.complete?1:new Promise(r=>{i.onload=r;i.onerror=r})))
+  .then(()=>setTimeout(()=>{document.title='FONTS-OK'},1200));
+</script>
+</body>
+</html>
