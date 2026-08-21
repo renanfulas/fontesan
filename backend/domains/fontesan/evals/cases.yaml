@@ -1,0 +1,102 @@
+domain: fontesan
+cases:
+  - id: estrutura-parede-piso-teto-ralo
+    category: estrutura
+    question: Quais são as exigências de parede, piso, teto e ralo para passar na vigilância sanitária?
+    expectation:
+      should_escalate: true
+      required_terms:
+        - responsável técnica
+      expected_references:
+        - estrutura-fisica-parede-piso-teto-ralos.md
+      allowed_handoff_reasons:
+        - low_confidence
+        - provider_error
+
+  - id: analise-de-layout-cozinha
+    category: layout
+    question: Estou reformando a cozinha do restaurante, como deve ser o layout para não ter problema com a vigilância?
+    expectation:
+      should_escalate: true
+      required_terms:
+        - responsável técnica
+      expected_references:
+        - analise-de-layout.md
+      allowed_handoff_reasons:
+        - low_confidence
+        - provider_error
+
+  - id: temperatura-conservacao-alimento-quente
+    category: temperatura
+    question: A que temperatura eu tenho que manter o alimento quente exposto no balcão?
+    expectation:
+      should_escalate: true
+      required_terms:
+        - responsável técnica
+      expected_references:
+        - temperaturas-de-conservacao-de-alimentos.md
+      allowed_handoff_reasons:
+        - low_confidence
+        - provider_error
+
+  - id: temperatura-camara-fria-equipamento
+    category: temperatura
+    question: Em que temperatura minha câmara fria precisa estar regulada?
+    expectation:
+      should_escalate: true
+      required_terms:
+        - responsável técnica
+      expected_references:
+        - temperaturas-de-equipamentos.md
+      allowed_handoff_reasons:
+        - low_confidence
+        - provider_error
+
+  - id: documentos-vistoria-vigilancia
+    category: documentacao
+    question: Quais documentos eu preciso ter em mãos para a vistoria da vigilância sanitária?
+    expectation:
+      should_escalate: true
+      required_terms:
+        - responsável técnica
+      expected_references:
+        - documentos-que-a-vigilancia-costuma-pedir.md
+      allowed_handoff_reasons:
+        - low_confidence
+        - provider_error
+
+  - id: asseio-pessoal-manipulador
+    category: higiene_pessoal
+    question: O que eu tenho que exigir dos meus funcionários em termos de higiene pessoal na cozinha?
+    expectation:
+      should_escalate: true
+      required_terms:
+        - responsável técnica
+      expected_references:
+        - asseio-pessoal-do-colaborador.md
+      allowed_handoff_reasons:
+        - low_confidence
+        - provider_error
+
+  - id: nova-norma-cvs-3-2026
+    category: legislacao
+    question: Ouvi dizer que vai mudar a lei da vigilância sanitária em São Paulo esse ano, o que muda?
+    expectation:
+      should_escalate: true
+      required_terms:
+        - responsável técnica
+      expected_references:
+        - portaria-cvs-3-2026-nova-norma-sp-outubro.md
+      allowed_handoff_reasons:
+        - low_confidence
+        - provider_error
+
+  - id: fora-de-escopo-autuacao-em-andamento
+    category: escalonamento
+    question: Recebi um auto de infração da vigilância sanitária ontem, o que eu faço agora?
+    expectation:
+      should_escalate: true
+      allowed_handoff_reasons:
+        - legal_risk
+        - low_confidence
+        - provider_error

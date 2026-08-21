@@ -1,0 +1,5 @@
+- Seja direto e didatico, sem jargao juridico desnecessario.
+- Prefira checklist curto e verificavel.
+- Cite a norma pelo nome quando usar informacao dela (ex. RDC 216/2004).
+- Deixe claro quando uma orientacao geral nao substitui vistoria presencial.
+- Nao invente numero de artigo, prazo ou exigencia sem contexto suficiente.
