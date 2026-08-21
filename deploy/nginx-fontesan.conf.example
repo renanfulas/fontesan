@@ -1,0 +1,116 @@
+# Referência de configuração Nginx para a VPS (HostGator).
+# NÃO aplicado automaticamente: eu não tenho acesso à VPS. Copie o conteúdo
+# para o servidor, ajuste o que está marcado como TROCAR e recarregue o Nginx.
+#
+# O que este arquivo faz:
+#   - serve o site estático da Fontesan (pasta site/ deste projeto) na raiz
+#     do domínio;
+#   - repassa POST /web/fontesan/leads para o supportfaqagent, que já roda
+#     em 127.0.0.1:8000 na mesma VPS.
+#
+# Por que os dois ficam no MESMO server block, no MESMO domínio:
+# o supportfaqagent não tem CORSMiddleware configurado (checado no código
+# dele). Se o formulário da Fontesan chamasse um domínio diferente do que
+# está sendo exibido no navegador, a chamada seria bloqueada por CORS. Como
+# aqui os dois ficam sob o mesmo domínio, a chamada é same-origin e não
+# precisa de CORS nenhum. Esse é o mesmo padrão já usado no runbook
+# docs/runbooks/chat-ordens-frontend-proxy.md do supportfaqagent, só que
+# invertido: lá o Nginx serve o backend por padrão e desvia só algumas rotas
+# para um frontend; aqui o Nginx serve arquivos estáticos por padrão e desvia
+# só uma rota para o backend.
+
+server {
+    listen 80;
+    listen [::]:80;
+    server_name fontesan.com.br www.fontesan.com.br;  # TROCAR pelo domínio real
+
+    # Redireciona para HTTPS depois que o certificado (Let's Encrypt / certbot
+    # ou o SSL da HostGator) estiver emitido para este domínio.
+    # return 301 https://$host$request_uri;
+
+    root /var/www/fontesan/site;   # TROCAR pelo caminho real na VPS
+    index index.html;
+
+    # Arquivos estáticos do site (HTML, CSS, JS, vídeos, imagens)
+    location / {
+        try_files $uri $uri/ =404;
+    }
+
+    # Vídeos e imagens não mudam de conteúdo quando o nome do arquivo é o
+    # mesmo: cache longo no navegador. Se um vídeo for trocado, troque também
+    # o nome do arquivo (ex: cap1-limoes-v2.mp4) para invalidar o cache.
+    location ~* \.(mp4|jpg|jpeg|png|webp|svg)$ {
+        try_files $uri =404;
+        add_header Cache-Control "public, max-age=2592000, immutable";
+    }
+
+    # Único caminho que sai do site estático: o formulário de contato.
+    # Same-origin com o site acima, então o navegador nunca faz uma chamada
+    # cross-origin e o backend não precisa de CORS.
+    location = /web/fontesan/leads {
+        proxy_pass http://127.0.0.1:8000/web/fontesan/leads;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
+
+# Depois de emitir o certificado HTTPS (certbot costuma gerar este bloco
+# automaticamente), o padrão de outro domínio já em produção nesta mesma VPS
+# tem a forma abaixo. Ajuste os caminhos do certificado conforme o que o
+# certbot criar para fontesan.com.br.
+#
+# server {
+#     listen 443 ssl http2;
+#     listen [::]:443 ssl http2;
+#     server_name fontesan.com.br www.fontesan.com.br;
+#
+#     ssl_certificate     /etc/letsencrypt/live/fontesan.com.br/fullchain.pem;
+#     ssl_certificate_key /etc/letsencrypt/live/fontesan.com.br/privkey.pem;
+#
+#     root /var/www/fontesan/site;
+#     index index.html;
+#
+#     location / {
+#         try_files $uri $uri/ =404;
+#     }
+#
+#     location ~* \.(mp4|jpg|jpeg|png|webp|svg)$ {
+#         try_files $uri =404;
+#         add_header Cache-Control "public, max-age=2592000, immutable";
+#     }
+#
+#     location = /web/fontesan/leads {
+#         proxy_pass http://127.0.0.1:8000/web/fontesan/leads;
+#         proxy_http_version 1.1;
+#         proxy_set_header Host $host;
+#         proxy_set_header X-Real-IP $remote_addr;
+#         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+#         proxy_set_header X-Forwarded-Proto $scheme;
+#     }
+# }
+
+# Checklist de deploy (nesta ordem):
+#   1. Enviar a pasta site/ da Fontesan para /var/www/fontesan/site na VPS
+#      (rsync ou scp -r).
+#   2. Aplicar a migration nova do supportfaqagent no Postgres da VPS:
+#      python -m scripts.migrate apply  (dentro do venv do supportfaqagent,
+#      com DATABASE_URL apontando pro Postgres real)
+#   3. Definir FONTESAN_LEADS_RATE_LIMIT_PER_MINUTE no .env do supportfaqagent
+#      na VPS (o padrão do código é 5; só precisa declarar se quiser outro
+#      valor) e reiniciar o processo do supportfaqagent para carregar o .env.
+#   4. Copiar este arquivo para /etc/nginx/sites-available/fontesan.conf,
+#      criar o link em sites-enabled, nginx -t, e só então systemctl reload
+#      nginx.
+#   5. Emitir o certificado HTTPS (certbot --nginx -d fontesan.com.br -d
+#      www.fontesan.com.br), o que normalmente já cria o bloco 443 sozinho.
+#   6. Testar de fora da VPS:
+#      curl -i https://fontesan.com.br/
+#      curl -i -H "Content-Type: application/json" \
+#        -d '{"nome":"Teste","tipo_negocio":"Padaria","telefone":"11999999999"}' \
+#        https://fontesan.com.br/web/fontesan/leads
+#      Esperado no segundo curl: 200, corpo com "storage":"postgres" (prova
+#      que a migration 020 foi aplicada e o Postgres está gravando de verdade,
+#      não "pending_persistence").

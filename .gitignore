@@ -1,0 +1,15 @@
+# Vídeos brutos de origem: grandes demais para o git, hospedados como
+# GitHub Release (link no README). Só os vídeos já processados em
+# site/assets/ (pequenos, otimizados para web) vão no repositório.
+/Vídeos/
+
+# Material de trabalho: contact sheets e screenshots de auditoria.
+# Nunca fez parte do site, só serviu para revisão durante o build.
+/review/
+
+# Pacote de referência da skill usada para construir o site.
+# Ferramenta de terceiros, não é conteúdo do projeto.
+/10k-websites/
+
+.DS_Store
+Thumbs.db

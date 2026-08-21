@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fontesan · Segurança de alimentos e vigilância sanitária na Grande São Paulo</title>
+<meta name="description" content="Consultoria em segurança de alimentos e vigilância sanitária para padarias, restaurantes e mercados na Grande São Paulo. Diagnóstico, adequação, treinamento e documentação, com responsável técnica registrada.">
+<meta name="theme-color" content="#16281c">
+<!-- DEPLOY STEP: trocar og:url e og:image por URLs absolutas do site publicado -->
+<meta property="og:title" content="Fontesan · Segurança de alimentos">
+<meta property="og:description" content="Você escolhe com os olhos. A segurança de um alimento, ninguém vê. Consultoria em vigilância sanitária para padarias, restaurantes e mercados na Grande São Paulo.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="assets/">
+<meta property="og:image" content="assets/cap1-limoes-poster.jpg">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='44' fill='%2316281c'/%3E%3Ccircle cx='50' cy='50' r='38' fill='none' stroke='%23d9821b' stroke-width='3'/%3E%3Cpath d='M35 52 L46 62 L66 40' fill='none' stroke='%23f2ecdd' stroke-width='7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Public+Sans:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ===== Tokens ===== */
+:root{
+  --canvas:#f5eee1; --panel:#fbf7ee; --panel-deep:#ece2cf;
+  --deep:#16281c; --deep-panel:#1f3627;
+  --ink:#1f3826; --text-secondary:#5d6d54;
+  --accent:#d9821b; --accent-hover:#b76a10; --accent-ink:#9c5a0d;
+  --accent-muted:rgba(217,130,27,.16); --cream:#f2ecdd;
+  --tshadow:0 1px 2px rgba(8,12,7,.95),0 3px 12px rgba(8,12,7,.78),0 10px 44px rgba(8,12,7,.8);
+  --ease:cubic-bezier(.22,.75,.25,1); --ease-soft:cubic-bezier(.4,.1,.2,1);
+  --mono:'IBM Plex Mono',monospace; --disp:'Fraunces',serif; --body:'Public Sans',system-ui,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{overflow-x:hidden;overflow-x:clip}
+html{scroll-behavior:smooth}
+body{background:var(--canvas);color:var(--ink);font-family:var(--body);font-size:1.0625rem;line-height:1.6}
+body.paused *,body.paused *::before,body.paused *::after{animation-play-state:paused!important}
+img,video{max-width:100%;display:block}
+a{color:var(--accent-ink)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:4px}
+.skip{position:absolute;left:-999px;top:0;background:var(--deep);color:var(--cream);padding:.6rem 1rem;z-index:99;border-radius:0 0 8px 0}
+.skip:focus{left:0}
+.mono{font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase}
+h1,h2,h3{font-family:var(--disp);font-weight:600;line-height:1.12;letter-spacing:-.01em}
+.wrap{max-width:1200px;margin:0 auto;padding:0 clamp(1.1rem,4vw,2.5rem)}
+
+/* ===== Nav ===== */
+nav{position:fixed;inset:0 0 auto 0;z-index:50;transition:background .45s var(--ease-soft),box-shadow .45s var(--ease-soft)}
+nav .wrap{display:flex;align-items:center;gap:1.6rem;padding-top:.85rem;padding-bottom:.85rem}
+nav.solid{background:rgba(245,238,225,.92);backdrop-filter:blur(10px);box-shadow:0 1px 0 rgba(31,56,38,.12)}
+.brand{display:flex;align-items:baseline;gap:.6rem;text-decoration:none;color:var(--cream);font-family:var(--disp);font-weight:600;font-size:1.3rem;transition:color .45s}
+.brand svg{width:30px;height:30px;align-self:center;filter:drop-shadow(0 1px 3px rgba(8,12,7,.55))}
+nav.solid .brand{color:var(--ink)}
+nav.solid .brand svg{--cream:var(--ink);filter:none}
+.sucesso .seal{--cream:var(--ink)}
+.navlinks{display:flex;gap:1.5rem;margin-left:auto;align-items:baseline}
+.navlinks a{color:var(--cream);text-decoration:none;font-size:.9rem;font-weight:600;text-shadow:0 1px 3px rgba(8,12,7,.6);transition:color .45s}
+nav.solid .navlinks a{color:var(--ink);text-shadow:none}
+.navlinks a:hover{color:var(--accent)}
+.btn{display:inline-block;background:var(--accent);color:#1c130a;font-weight:600;text-decoration:none;border:0;border-radius:999px;padding:.72rem 1.5rem;font-size:.95rem;font-family:var(--body);cursor:pointer;transition:background .3s var(--ease-soft),transform .3s var(--ease-soft),box-shadow .3s var(--ease-soft)}
+.btn:hover{background:var(--accent-hover);transform:translateY(-2px);box-shadow:0 8px 24px rgba(217,130,27,.35)}
+.btn.ghost{background:transparent;color:var(--cream);border:1.5px solid rgba(242,236,221,.55)}
+.btn.ghost:hover{background:rgba(242,236,221,.12);box-shadow:none}
+.btn{text-shadow:none}
+@media(pointer:coarse){.btn,.navlinks a,summary{min-height:44px;display:inline-flex;align-items:center;justify-content:center}}
+@media(max-width:820px){.navlinks{display:none}nav .btn{padding:.55rem 1.15rem;font-size:.9rem;margin-left:auto}}
+
+/* ===== Capítulos ===== */
+.chapter{position:relative;height:200vh}
+.chapter:first-of-type{height:230vh}
+.stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;background-size:cover;background-position:center}
+.stage video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .8s var(--ease-soft);will-change:transform;transform:translateZ(0)}
+.stage.video-ready video{opacity:1}
+.stage.video-failed video{display:none}
+.scrim{position:absolute;inset:0;pointer-events:none;background:linear-gradient(rgba(8,12,7,.48),rgba(8,12,7,0) 150px),radial-gradient(ellipse 120% 90% at 50% 45%,rgba(8,12,7,0) 35%,rgba(8,12,7,.62) 100%)}
+.band{position:absolute;color:var(--cream);text-shadow:var(--tshadow);max-width:34rem;opacity:0;isolation:isolate}
+.band::before{content:"";position:absolute;inset:-18% -14%;pointer-events:none;z-index:-1;opacity:calc(.25 + .75*var(--k,0));background:radial-gradient(ellipse 74% 62% at 50% 50%,rgba(8,12,7,var(--scrimA,.62)) 0%,rgba(8,12,7,calc(var(--scrimA,.62)*.66)) 46%,rgba(8,12,7,0) 76%)}
+.band .kicker{display:inline-block;background:rgba(10,16,9,.55);border:1px solid rgba(150,160,140,.3);border-radius:10px;padding:.45rem .8rem;backdrop-filter:blur(10px);text-shadow:0 1px 3px rgba(8,12,7,.85);color:#e8dfc8;margin-bottom:1.2rem}
+.band h1,.band h2{font-size:clamp(2.1rem,4.6vw,3.6rem);max-width:16ch}
+.band p{margin-top:1.1rem;font-size:clamp(1.02rem,1.6vw,1.22rem);max-width:44ch;color:#efe9d8;opacity:var(--ks,0);transform:translateY(calc((1 - var(--ks,0))*14px))}
+.band .w{display:inline-block;opacity:var(--kc);will-change:transform,opacity}
+/* entradas */
+.chapter[data-entrance="rise"] .w{--kc:clamp(0,(var(--k,0) - var(--th,0))*2.8,1);transform:translateY(calc((1 - var(--kc))*26px))}
+.chapter[data-entrance="drift"] .w{--kc:clamp(0,(var(--k,0) - var(--th,0))*2.8,1);transform:translateY(calc((1 - var(--kc))*-24px))}
+.chapter[data-entrance="grid"] .w{--kc:clamp(0,(var(--k,0) - var(--th,0))*3,1);transform:translateX(calc((1 - var(--kc))*var(--jx,40px)))}
+.chapter[data-entrance="scatter"] .w{--kc:clamp(0,(var(--k,0) - var(--th,0))*2.6,1);transform:translate(calc((1 - var(--kc))*var(--jx,0px)),calc((1 - var(--kc))*var(--jy,0px))) rotate(calc((1 - var(--kc))*var(--jr,0deg)))}
+.chapter[data-entrance="punch"] .w{--kc:clamp(0,(var(--k,0) - var(--th,0))*3,1);--kss:clamp(0,(var(--k,0) - var(--th,0) - .1)*3.2,1);transform:scale(calc(.6 + .52*var(--kc) - .12*var(--kss)))}
+.chapter[data-entrance="punch"] .w.em{--kss:clamp(0,(var(--k,0) - var(--th,0) - .16)*2.6,1);transform:scale(calc(.55 + .69*var(--kc) - .24*var(--kss)));color:#ffd9a3}
+.chapter[data-entrance="blur"] h2{position:relative}
+.chapter[data-entrance="blur"] .w{--kc:clamp(0,(var(--k,0) - var(--th,0))*2.4,1)}
+.chapter[data-entrance="blur"] .soft{position:absolute;inset:0;filter:blur(10px);opacity:calc(1 - var(--k,0));pointer-events:none}
+.chapter[data-entrance="blur"] .sharp .w{opacity:var(--kc)}
+/* posições das bandas por capítulo */
+#cap1 .band{top:50%;right:6vw;transform:translateY(-50%)}
+#cap2 .band{top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;--scrimA:.7}
+#cap2 .band h2,#cap2 .band p{margin-left:auto;margin-right:auto}
+#cap3 .band{top:16vh;right:6vw}
+#cap4 .band{top:50%;left:7vw;transform:translateY(-50%)}
+#cap5 .band{top:14vh;left:7vw}
+#cap6 .band{top:50%;right:6vw;transform:translateY(-50%)}
+#cap7 .band{top:50%;left:7vw;transform:translateY(-50%);--scrimA:.72}
+.cue{position:absolute;left:50%;bottom:4vh;bottom:4svh;transform:translateX(-50%);color:var(--cream);opacity:.85;text-shadow:var(--tshadow)}
+.urgente{display:inline-block;margin-top:1.4rem;color:#ffd9a3;font-weight:600;font-size:.93rem;text-decoration:none;border:1.5px solid rgba(255,217,163,.5);border-radius:999px;padding:.55rem 1.1rem;background:rgba(10,16,9,.4);backdrop-filter:blur(8px);opacity:var(--ks,0);transition:background .3s var(--ease-soft),border-color .3s var(--ease-soft)}
+.urgente:hover{background:rgba(217,130,27,.25);border-color:var(--accent)}
+.cue svg{width:26px;height:26px;animation:cueFloat 4.5s var(--ease-soft) -1.2s infinite}
+@keyframes cueFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(9px)}}
+@media(max-width:720px){
+  .chapter{height:175vh}
+  .chapter:first-of-type{height:195vh}
+  .band,#cap1 .band,#cap2 .band,#cap3 .band,#cap4 .band,#cap5 .band,#cap6 .band,#cap7 .band{left:6vw;right:6vw;top:auto;bottom:12vh;bottom:12svh;transform:none;text-align:left;max-width:none;--scrimA:.72}
+  #cap2 .band h2,#cap2 .band p{margin-left:0}
+}
+@media(max-height:560px){.cue{display:none}}
+
+/* ===== Settle ===== */
+.settle{position:relative;background:var(--deep);color:var(--cream);padding:clamp(5rem,12vh,9rem) 0;text-align:center;overflow:hidden}
+.settle .glow{position:absolute;left:50%;top:38%;width:640px;height:640px;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(217,130,27,.16),transparent 65%);pointer-events:none}
+.settle.live .glow{animation:glowPulse 8s var(--ease-soft) -2s infinite}
+@keyframes glowPulse{0%,100%{opacity:.7}50%{opacity:1}}
+.settle .seal{width:120px;height:120px;margin:0 auto 1.8rem;--ringOff:302;--checkOff:60}
+.settle.in .seal{--ringOff:0;--checkOff:0}
+html.static-mode .settle .seal{--ringOff:0;--checkOff:0}
+.settle h2{font-size:clamp(2rem,4.4vw,3.4rem)}
+.settle p{margin:1.2rem auto 2.2rem;max-width:52ch;color:#d9d2bd;font-size:1.15rem}
+.settle .ctas{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+
+/* ===== Seções gerais ===== */
+section.block{padding:clamp(4.5rem,10vh,8rem) 0}
+.sec-head{max-width:46rem;margin-bottom:3rem}
+.sec-head .mono{color:var(--accent-ink);display:block;margin-bottom:.9rem}
+.sec-head h2{font-size:clamp(1.9rem,3.6vw,2.8rem)}
+.sec-head p{margin-top:1rem;color:var(--text-secondary)}
+.reveal .part{opacity:0;transform:translateY(26px)}
+.reveal.in .part{opacity:1;transform:none;transition:opacity .8s var(--ease-soft),transform .8s var(--ease-soft)}
+.reveal.in:not(.done) .part:nth-child(2){transition-delay:.12s}
+.reveal.in:not(.done) .part:nth-child(3){transition-delay:.24s}
+.reveal.in:not(.done) .part:nth-child(4){transition-delay:.36s}
+.reveal.in:not(.done) .part:nth-child(5){transition-delay:.48s}
+
+/* Serviços */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.2rem}
+.card{background:var(--panel);border:1px solid rgba(31,56,38,.14);border-radius:18px;padding:1.8rem 1.6rem;transition:transform .35s var(--ease-soft),box-shadow .35s var(--ease-soft)}
+.card:hover{transform:translateY(-5px);box-shadow:0 16px 40px rgba(31,56,38,.13)}
+.card .mono{color:var(--accent-ink)}
+.card h3{font-size:1.35rem;margin:.8rem 0 .6rem}
+.card p{color:var(--text-secondary);font-size:.98rem}
+#servicos{position:relative}
+#servicos .drift{position:absolute;right:-140px;top:20%;width:420px;height:420px;background:radial-gradient(circle,var(--accent-muted),transparent 65%);pointer-events:none;animation:drift 26s var(--ease-soft) -6s infinite alternate}
+@keyframes drift{from{transform:translate(0,0)}to{transform:translate(-60px,50px)}}
+
+/* Para quem */
+#quem{background:var(--panel-deep)}
+.quem-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:2.6rem;align-items:center}
+.quem-video{position:relative;border-radius:20px;overflow:hidden;aspect-ratio:16/10;background-size:cover;background-position:center;box-shadow:0 24px 60px rgba(31,56,38,.25)}
+.quem-video video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .8s}
+.quem-video.video-ready video{opacity:1}
+.quem-video.video-failed video{display:none}
+.quem-list{display:grid;gap
+:1.4rem}
+.quem-list h3{font-size:1.25rem;display:flex;gap:.7rem;align-items:baseline}
+.quem-list h3 .mono{color:var(--accent-ink)}
+.quem-list p{color:var(--text-secondary);font-size:.98rem;margin-top:.3rem}
+@media(max-width:860px){.quem-grid{grid-template-columns:1fr}}
+
+/* Como funciona */
+#como .passos{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;counter-reset:passo}
+.passo{background:var(--panel);border:1px solid rgba(31,56,38,.14);border-radius:18px;padding:1.7rem 1.5rem;position:relative;transition:border-color .5s var(--ease-soft),box-shadow .5s var(--ease-soft)}
+.passo h3{font-size:1.3rem;margin:.7rem 0 .5rem}
+.passo p{color:var(--text-secondary);font-size:.97rem}
+.passo.lit{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent),0 14px 34px rgba(217,130,27,.18)}
+#como .hold-row{margin-top:2.6rem;display:flex;align-items:center;gap:1.6rem;flex-wrap:wrap;justify-content:center;background:var(--panel);border:1.5px dashed rgba(31,56,38,.3);border-radius:20px;padding:1.6rem}
+.holdbtn{position:relative;width:96px;height:96px;border-radius:50%;border:0;background:var(--deep);cursor:pointer;display:grid;place-items:center;touch-action:none;transition:transform .3s var(--ease-soft)}
+.holdbtn:active{transform:scale(.97)}
+.holdbtn svg{width:78px;height:78px}
+.holdbtn .ringp{stroke-dasharray:302;stroke-dashoffset:calc(302*(1 - var(--hold,0)));transform:rotate(-90deg);transform-origin:50% 50%}
+.hold-copy{max-width:30rem}
+.hold-copy strong{font-family:var(--disp);font-size:1.2rem;font-weight:600}
+.hold-copy p{color:var(--text-secondary);font-size:.95rem;margin-top:.3rem}
+.hold-row.stamped .holdbtn{animation:stamp .5s var(--ease)}
+@keyframes stamp{0%{transform:scale(1)}45%{transform:scale(1.14) rotate(-4deg)}100%{transform:scale(1)}}
+.hold-status{font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-ink);min-width:7ch}
+@media(max-width:860px){#como .passos{grid-template-columns:1fr}}
+
+/* Fatos */
+#fatos{background:var(--deep);color:var(--cream);position:relative}
+#fatos::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.05;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E")}
+#fatos .sec-head h2{color:var(--cream)}
+#fatos .sec-head .mono{color:var(--accent)}
+#fatos .sec-head p{color:#c9c2ad}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1.2rem;position:relative;z-index:1}
+.stat{background:var(--deep-panel);border:1px solid rgba(242,236,221,.14);border-radius:18px;padding:1.6rem 1.4rem}
+.stat .num{font-family:var(--disp);font-weight:600;font-size:2.6rem;color:#ffd9a3;line-height:1;display:flex;align-items:baseline;gap:.2rem}
+.stat p{color:#c9c2ad;font-size:.95rem;margin-top:.6rem}
+#fatos .fonte{margin-top:2rem;color:#8b957f;position:relative;z-index:1}
+
+/* Interlúdio vertical */
+#interludio .duo{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;max-width:760px;margin:0 auto}
+#interludio .vslot{position:relative;border-radius:20px;overflow:hidden;aspect-ratio:9/16;background-size:cover;background-position:center;box-shadow:0 24px 60px rgba(31,56,38,.18)}
+#interludio .vslot video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .8s}
+#interludio .vslot.video-ready video{opacity:1}
+#interludio .vslot.video-failed video{display:none}
+#interludio .frase{max-width:34rem;margin:3rem auto 0;text-align:center;font-family:var(--disp);font-weight:500;font-size:clamp(1.4rem,2.6vw,1.9rem);line-height:1.35;color:var(--ink)}
+@media(max-width:600px){#interludio .duo{grid-template-columns:1fr;max-width:340px}}
+
+/* Quem assina (credencial) */
+#assina{background:var(--panel-deep)}
+.cred{max-width:860px;border-radius:20px;overflow:hidden;box-shadow:0 24px 60px rgba(31,56,38,.18);border:1px solid rgba(31,56,38,.16)}
+.cred-top{background:var(--deep);color:var(--cream);padding:.85rem 1.6rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.cred-top .mono{color:var(--accent);letter-spacing:.18em}
+.cred-top .reg{font-family:var(--mono);font-size:.8rem;color:#d9d2bd}
+.cred-body{background:var(--panel);display:grid;grid-template-columns:auto 1fr;gap:1.8rem;padding:2rem 1.9rem;align-items:start}
+.cred-seal{width:96px;height:96px;--cream:var(--ink)}
+.cred-body h3{font-size:clamp(1.5rem,2.6vw,2rem);line-height:1.15}
+.cred-body .cargo{color:var(--accent-ink);font-weight:600;margin-top:.35rem;font-size:.98rem}
+.cred-body p{color:var(--text-secondary);margin-top:.9rem;max-width:52ch}
+.cred-list{list-style:none;margin-top:1.2rem;display:grid;gap:.55rem}
+.cred-list li{display:flex;gap:.65rem;align-items:baseline;font-size:.97rem}
+.cred-list li::before{content:"";flex:0 0 auto;width:7px;height:7px;border-radius:50%;background:var(--accent);transform:translateY(-2px)}
+@media(max-width:640px){.cred-body{grid-template-columns:1fr;gap:1.2rem;padding:1.6rem 1.3rem}.cred-seal{width:72px;height:72px}}
+
+/* FAQ */
+#faq details{background:var(--panel);border:1px solid rgba(31,56,38,.14);border-radius:16px;margin-bottom:.9rem;overflow:hidden}
+#faq summary{cursor:pointer;list-style:none;padding:1.2rem 1.4rem;font-weight:600;font-family:var(--disp);font-size:1.12rem;display:flex;justify-content:space-between;gap:1rem;align-items:baseline}
+#faq summary::-webkit-details-marker{display:none}
+#faq summary::after{content:"+";font-family:var(--mono);color:var(--accent-ink);transition:transform .3s var(--ease-soft)}
+#faq details[open] summary::after{transform:rotate(45deg)}
+#faq details p{padding:0 1.4rem 1.3rem;color:var(--text-secondary)}
+
+/* Linha de inspeção */
+.linha{position:absolute;left:50%;top:-3.5rem;bottom:-1.5rem;width:2px;pointer-events:none;display:none}
+@media(min-width:861px){#como .passos{position:relative}.linha{display:block}
+.linha::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(to bottom,rgba(31,56,38,.22) 0 8px,transparent 8px 18px);transform:scaleY(var(--draw,0));transform-origin:top}}
+
+/* CTA final */
+#contato{background:linear-gradient(180deg,var(--canvas),var(--panel-deep))}
+.cta-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start}
+#contato h2{font-size:clamp(1.9rem,3.8vw,2.9rem);max-width:16ch}
+#contato .lead{margin:1.2rem 0 2rem;color:var(--text-secondary);max-width:40ch}
+form{background:var(--panel);border:1px solid rgba(31,56,38,.14);border-radius:20px;padding:1.8rem}
+.field{margin-bottom:1.1rem}
+.field label{display:block;font-weight:600;font-size:.92rem;margin-bottom:.35rem}
+.field input,.field select,.field textarea{width:100%;border:1.5px solid rgba(31,56,38,.32);border-radius:10px;padding:.7rem .9rem;font:inherit;background:#fff;color:var(--ink)}
+.field input:focus,.field select:focus,.field textarea:focus{outline:3px solid var(--accent);outline-offset:1px;border-color:var(--accent)}
+.field [aria-invalid="true"]{border-color:#a3271b;background:#fdf3f1}
+.ferro,.ffalha{display:none;color:#8f2016;font-weight:600;font-size:.92rem;margin:0 0 1rem}
+form.com-erro .ferro{display:block}
+form.com-falha .ffalha{display:block}
+.hp{position:absolute;left:-9999px}
+form .micro{color:var(--text-secondary);font-size:.85rem;margin-top:.8rem}
+.sucesso{display:none;text-align:center;padding:2.5rem 1rem}
+.sucesso .seal{width:90px;height:90px;margin:0 auto 1.2rem}
+.sucesso:focus{outline:none}
+form.sent .campos{display:none}
+form.sent .sucesso{display:block}
+@media(max-width:860px){.cta-grid{grid-template-columns:1fr}}
+
+/* Rodapé */
+footer{background:var(--deep);color:#c9c2ad;padding:3rem 0}
+footer .wrap{display:flex;flex-wrap:wrap;gap:2rem;align-items:center;justify-content:space-between}
+footer .fbrand{display:flex;align-items:center;gap:.7rem;color:var(--cream);font-family:var(--disp);font-weight:600;font-size:1.2rem}
+footer .fbrand svg{width:34px;height:34px}
+footer p{font-size:.88rem}
+footer a{color:#e8dfc8}
+
+/* ===== Movimento reduzido / modo estático ===== */
+html.static-mode .band{opacity:1!important;--k:1}
+html.static-mode .band .w,html.static-mode .band p,html.static-mode .band .urgente{opacity:1!important;transform:none!important}
+html.static-mode .chapter[data-entrance="blur"] .soft{opacity:0}
+html.static-mode .stage video,html.static-mode .quem-video video,html.static-mode .vslot video{display:none}
+html.static-mode .cue svg{animation:none}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .reveal .part{opacity:1;transform:none}
+  .settle .seal{--ringOff:0;--checkOff:0}
+  .linha::before{transform:scaleY(1)}
+  html{scroll-behavior:auto}
+}
+</style>
+<noscript><style>.band,.band .w,.band p,.band .urgente,.reveal .part{opacity:1!important;transform:none!important}.settle .seal{--ringOff:0;--checkOff:0}</style></noscript>
+</head>
+<body>
+<a class="skip" href="#main">Pular para o conteúdo</a>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <g id="selo">
+      <circle class="ring" cx="50" cy="50" r="48" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-dasharray="302" style="stroke-dashoffset:var(--ringOff,0);transition:stroke-dashoffset 1.4s var(--ease)"/>
+      <circle class="ring2" cx="50" cy="50" r="40" fill="none" stroke="var(--cream)" stroke-width="1" opacity=".7" stroke-dasharray="252" style="stroke-dashoffset:var(--ringOff,0);transition:stroke-dashoffset 1.4s var(--ease) .15s"/>
+      <path class="check" d="M34 52 L46 63 L67 39" fill="none" stroke="var(--cream)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="60" style="stroke-dashoffset:var(--checkOff,0);transition:stroke-dashoffset .8s var(--ease) .9s"/>
+      <path id="seloArc" d="M50,50 m-44,0 a44,44 0 1,1 88,0 a44,44 0 1,1 -88,0" fill="none"/>
+      <text font-family="IBM Plex Mono,monospace" font-size="7.4" letter-spacing="1.6" fill="var(--cream)" opacity=".85">
+        <textPath href="#seloArc" startOffset="2">FONTESAN · SEGURANÇA DE ALIMENTOS · ROTINA ·</textPath>
+      </text>
+    </g>
+  </defs>
+</svg>
+
+<nav id="nav" aria-label="Principal">
+  <div class="wrap">
+    <a class="brand" href="#cap1"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#selo"/></svg>Fontesan</a>
+    <div class="navlinks">
+      <a href="#cap2">A história</a>
+      <a href="#servicos">Serviços</a>
+      <a href="#como">Como funciona</a>
+      <a href="#assina">Quem assina</a>
+      <a href="#faq">Perguntas</a>
+    </div>
+    <a class="btn" href="https://wa.me/5511947811422?text=Ol%C3%A1%21%20Vim%20pelo%20site%20da%20Fontesan%20e%20quero%20um%20diagn%C3%B3stico%20para%20o%20meu%20neg%C3%B3cio." target="_blank" rel="noopener">WhatsApp</a>
+  </div>
+</nav>
+
+<main id="main" tabindex="-1">
+
+<!-- CAP 1 · HERO -->
+<section class="chapter" id="cap1" data-entrance="rise" aria-label="Abertura">
+  <div class="stage" style="background-image:url('assets/cap1-limoes-poster.jpg')">
+    <video preload="none" muted playsinline loop aria-hidden="true" tabindex="-1" data-src="assets/cap1-limoes.mp4"></video>
+    <div class="scrim" aria-hidden="true"></div>
+    <div class="band">
+      <span class="kicker mono">Fontesan · Segurança de alimentos</span>
+      <h1 class="split">Você escolhe com os olhos.</h1>
+      <p>A segurança de um alimento, ninguém vê. Ela é feita antes, nas mãos e na rotina de quem prepara.</p>
+      <a class="urgente" href="#contato">Recebeu notificação com prazo? Fale agora</a>
+    </div>
+    <div class="cue" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 4v14m0 0l-6-6m6 6l6-6"/></svg></div>
+  </div>
+</section>
+
+<!-- CAP 2 -->
+<section class="chapter" id="cap2" data-entrance="drift" aria-label="O caminho">
+  <div class="stage" style="background-image:url('assets/cap2-vegetais-poster.jpg')">
+    <video preload="none" muted playsinline loop aria-hidden="true" tabindex="-1" data-src="assets/cap2-vegetais.mp4"></video>
+    <div class="scrim" aria-hidden="true"></div>
+    <div class="band">
+      <span class="kicker mono">Cap. 02 · O caminho</span>
+      <h2 class="split">Do fornecedor à mesa, todo alimento percorre um caminho.</h2>
+      <p>Recebimento, armazenamento, preparo, exposição. Cada etapa protege ou contamina. Não existe meio-termo.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CAP 3 -->
+<section class="chapter" id="cap3" data-entrance="grid" aria-label="O método">
+  <div class="stage" style="background-image:url('assets/cap3-luvas-poster.jpg')">
+    <video preload="none" muted playsinline loop aria-hidden="true" tabindex="-1" data-src="assets/cap3-luvas.mp4"></video>
+    <div class="scrim" aria-hidden="true"></div>
+    <div class="band">
+      <span class="kicker mono">Cap. 03 · O método</span>
+      <h2 class="split">Cuidado de verdade tem método.</h2>
+      <p>Luvas, temperatura certa, embalagem íntegra, registro no papel. É essa rotina que mantém o risco longe do balcão.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CAP 4 -->
+<section class="chapter" id="cap4" data-entrance="blur" aria-label="O detalhe">
+  <div class="stage" style="background-image:url('assets/cap4-morango-poster.jpg')">
+    <video preload="none" muted playsinline loop aria-hidden="true" tabindex="-1" data-src="assets/cap4-morango.mp4"></video>
+    <div class="scrim" aria-hidden="true"></div>
+    <div class="band">
+      <span class="kicker mono">Cap. 04 · O detalhe</span>
+      <h2 class="split">A segurança mora nos detalhes.</h2>
+      <p>Uma tábua trocada, uma mão lavada, um grau a menos na geladeira. Gestos pequenos, repetidos todos os dias, no ponto certo.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CAP 5 -->
+<section class="chapter" id="cap5" data-entrance="scatter" aria-label="O motivo">
+  <div class="stage" style="background-image:url('assets/cap5-familia-poster.jpg')">
+    <video preload="none" muted playsinline loop aria-hidden="true" tabindex="-1" data-src="assets/cap5-familia.mp4"></video>
+    <div class="scrim" aria-hidden="true"></div>
+    <div class="band">
+      <span class="kicker mono">Cap. 05 · O motivo</span>
+      <h2 class="split">No fim do caminho, tem sempre uma mesa.</h2>
+      <p>Quem come confia de olhos fechados. Essa confiança é o bem mais valioso do seu negócio.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CAP 6 -->
+<section class="chapter" id="cap6" data-entrance="drift" aria-label="Os primeiros">
+  <div class="stage" style="background-image:url('assets/cap6-leite-poster.jpg')">
+    <video preload="none" muted playsinline loop aria-hidden="true" tabindex="-1" data-src="assets/cap6-leite.mp4"></video>
+    <div class="scrim" aria-hidden="true"></div>
+    <div class="band">
+      <span class="kicker mono">Cap. 06 · Os primeiros</span>
+      <h2 class="split">E tem quem dependa dela por inteiro.</h2>
+      <p>Crianças, gestantes e idosos sentem primeiro, e sentem mais forte, qualquer falha que escapar da cozinha.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CAP 7 -->
+<section class="chapter" id="cap7" data-entrance="punch" aria-label="O risco">
+  <div class="stage" style="background-image:url('assets/cap7-melancia-poster.jpg')">
+    <video preload="none" muted playsinline loop aria-hidden="true" tabindex="-1" data-src="assets/cap7-melancia.mp4"></video>
+    <div class="scrim" aria-hidden="true"></div>
+    <div class="band">
+      <span class="kicker mono">Cap. 07 · O risco</span>
+      <h2 class="split">Um <em class="emword">descuido</em> invisível <em class="emword">desfaz</em> tudo isso.</h2>
+      <p>O Brasil notifica cerca de 650 surtos de doenças transmitidas por alimentos por ano. Restaurantes e padarias estão entre os lugares onde eles mais nascem. Ninguém percebe o erro até alguém adoecer.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SETTLE -->
+<section class="settle reveal" id="fontesan" aria-label="A Fontesan">
+  <div class="glow" aria-hidden="true"></div>
+  <div class="wrap">
+    <svg class="seal" viewBox="0 0 100 100" role="img" aria-label="Selo Fontesan"><use href="#selo"/></svg>
+    <h2>É aqui que a Fontesan entra.</h2>
+    <p>Consultoria em segurança de alimentos e vigilância sanitária para padarias, restaurantes e mercados. O cuidado invisível, feito rotina.</p>
+    <div class="ctas">
+        <a class="btn" href="https://wa.me/5511947811422?text=Ol%C3%A1%21%20Vim%20pelo%20site%20da%20Fontesan%20e%20quero%20um%20diagn%C3%B3stico%20para%20o%20meu%20neg%C3%B3cio." target="_blank" rel="noopener">Chamar no WhatsApp</a>
+      <a class="btn ghost" href="#contato">Pedir um diagnóstico</a>
+    </div>
+  </div>
+</section>
+
+<!-- SERVIÇOS -->
+<section class="block reveal" id="servicos" aria-label="Serviços">
+  <div class="drift" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="sec-head part">
+      <span class="mono">O que a Fontesan faz</span>
+      <h2>Quatro frentes, um objetivo: sua casa em dia.</h2>
+    </div>
+    <div class="cards">
+      <div class="card part">
+        <span class="mono">01</span>
+        <h3>Consultoria em vigilância sanitária</h3>
+        <p>Adequação completa às exigências da vigilância da sua cidade: licenças, laudos e o que o fiscal pede na porta.</p>
+      </div>
+      <div class="card part">
+        <span class="mono">02</span>
+        <h3>Treinamento de manipuladores</h3>
+        <p>Sua equipe aprende o porquê de cada regra, no seu balcão, com a sua rotina. Gente treinada erra menos.</p>
+      </div>
+      <div class="card part">
+        <span class="mono">03</span>
+        <h3>Documentação técnica</h3>
+        <p>Manual de Boas Práticas e POPs escritos para o seu negócio, do jeito que a RDC 216 exige. Nada de modelo genérico.</p>
+      </div>
+      <div class="card part">
+        <span class="mono">04</span>
+        <h3>Auditorias e visitas</h3>
+        <p>Checklist, visita periódica e correção antes que o problema vire notificação.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PARA QUEM -->
+<section class="block reveal" id="quem" aria-label="Para quem">
+  <div class="wrap">
+    <div class="sec-head part">
+      <span class="mono">Para quem</span>
+      <h2>Feita para quem vive de alimentar gente.</h2>
+    </div>
+    <div class="quem-grid">
+      <div class="quem-video part" style="background-image:url('assets/sec-restaurante-poster.jpg')">
+        <video preload="none" muted playsinline loop aria-hidden="true" tabindex="-1" data-src="assets/sec-restaurante.mp4"></video>
+      </div>
+      <div class="quem-list part">
+        <div>
+          <h3><span class="mono">Padarias</span></h3>
+          <p>Produção própria, manipulação intensa, público todo dia. Risco alto numa rotina corrida.</p>
+        </div>
+        <div>
+          <h3><span class="mono">Restaurantes e cozinhas</span></h3>
+          <p>Do recebimento ao prato, cada turno é uma prova de processo.</p>
+        </div>
+        <div>
+          <h3><span class="mono">Mercados e hortifrútis</span></h3>
+          <p>Exposição, refrigeração e validade sob o olhar do cliente e do fiscal.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMO FUNCIONA -->
+<section class="block reveal" id="como" aria-label="Como funciona">
+  <div class="wrap">
+    <div class="sec-head part">
+      <span class="mono">Como funciona</span>
+      <h2>Três passos, tudo previsto.</h2>
+    </div>
+    <div class="passos">
+      <div class="linha" aria-hidden="true"></div>
+      <div class="passo part"><span class="mono">Passo 1</span><h3>Diagnóstico</h3><p>Visitamos o seu negócio e mapeamos, ponto a ponto, o que está em dia e o que está em risco.</p></div>
+      <div class="passo part"><span class="mono">Passo 2</span><h3>Adequação</h3><p>Plano claro, prazos reais, documentos escritos, equipe treinada. Sem parar a operação.</p></div>
+      <div class="passo part"><span class="mono">Passo 3</span><h3>Rotina</h3><p>Visita e auditoria periódicas para a casa seguir em dia. Fiscal na porta deixa de ser susto.</p></div>
+    </div>
+    <div class="hold-row part" id="holdrow">
+      <button class="holdbtn" id="holdbtn" aria-label="Segure para aprovar o checklist" aria-pressed="false">
+        <svg viewBox="0 0 100 100" aria-hidden="true">
+          <circle cx="50" cy="50" r="48" fill="none" stroke="rgba(242,236,221,.25)" stroke-width="3"/>
+          <circle class="ringp" cx="50" cy="50" r="48" fill="none" stroke="var(--accent)" stroke-width="3"/>
+          <path d="M34 52 L46 63 L67 39" fill="none" stroke="var(--cream)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <div class="hold-copy">
+        <strong>Segure para aprovar.</strong>
+        <p>A aprovação da vigilância não vem de um gesto, vem de constância. Segure o selo e sinta o que a rotina constrói.</p>
+      </div>
+      <span class="hold-status" id="holdstatus" aria-live="polite">Aguardando</span>
+    </div>
+  </div>
+</section>
+
+<!-- FATOS -->
+<section class="block reveal" id="fatos" aria-label="Fatos">
+  <div class="wrap">
+    <div class="sec-head part">
+      <span class="mono">O tamanho do risco</span>
+      <h2>Isso acontece todos os dias, e quase nunca vira notícia.</h2>
+    </div>
+    <div class="stats">
+      <div class="stat part"><span class="num"><span>~</span><span data-count="650">0</span></span><p>surtos de doenças transmitidas por alimentos notificados por ano no Brasil.</p></div>
+      <div class="stat part"><span class="num"><span data-count="16">0</span><span>%</span></span><p>dos surtos nascem em restaurantes, padarias e similares.</p></div>
+      <div class="stat part"><span class="num"><span data-count="10">0</span><span>%</span></span><p>das punições chegam à interdição total. Antes dela vêm advertência (31%) e multa (20%).</p></div>
+      <div class="stat part"><span class="num"><span>?</span></span><p>E a maior parte dos casos nunca vira estatística.</p></div>
+    </div>
+    <p class="fonte mono part">Fontes: SINAN / Ministério da Saúde · estudo de autuações em capital do Nordeste</p>
+  </div>
+</section>
+
+<!-- INTERLÚDIO -->
+<section class="block reveal" id="interludio" aria-label="Interlúdio">
+  <div class="wrap">
+    <div class="duo">
+      <div class="vslot part" style="background-image:url('assets/vert-coentro-poster.jpg')">
+        <video preload="none" muted playsinline loop aria-hidden="true" tabindex="-1" data-src="assets/vert-coentro.mp4"></video>
+      </div>
+      <div class="vslot part" style="background-image:url('assets/vert-escolha-poster.jpg')">
+        <video preload="none" muted playsinline loop aria-hidden="true" tabindex="-1" data-src="assets/vert-escolha.mp4"></video>
+      </div>
+    </div>
+    <p class="frase part">Alimento bom se reconhece no olhar. Alimento seguro se constrói na rotina.</p>
+  </div>
+</section>
+
+<!-- QUEM ASSINA -->
+<section class="block reveal" id="assina" aria-label="Quem assina">
+  <div class="wrap">
+    <div class="sec-head part">
+      <span class="mono">Quem assina</span>
+      <h2>Toda rotina precisa de alguém que responda por ela.</h2>
+    </div>
+    <div class="cred part">
+      <div class="cred-top">
+        <span class="mono">Responsável técnica</span>
+        <span class="reg">CRN-3 67286</span>
+      </div>
+      <div class="cred-body">
+        <svg class="cred-seal" viewBox="0 0 100 100" aria-hidden="true"><use href="#selo"/></svg>
+        <div>
+          <h3>Giovanna Fontes Rios</h3>
+          <p class="cargo">Nutricionista, pós-graduada em Vigilância Sanitária e Qualidade de Alimentos</p>
+          <p>Quem visita o seu negócio, escreve os documentos e assina o trabalho é a mesma pessoa. Sem terceirizar, sem intermediário.</p>
+          <ul class="cred-list">
+            <li>Atendimento presencial em toda a Grande São Paulo</li>
+            <li>Registro ativo no Conselho Regional de Nutricionistas da 3ª região</li>
+            <li>Do diagnóstico à auditoria de rotina, com o mesmo responsável</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="block reveal" id="faq" aria-label="Perguntas frequentes">
+  <div class="wrap">
+    <div class="sec-head part">
+      <span class="mono">Perguntas de verdade</span>
+      <h2>O que todo dono pergunta antes de chamar.</h2>
+    </div>
+    <div class="part">
+      <details><summary>Vocês atendem a minha região?</summary><p>A Fontesan atende toda a Grande São Paulo presencialmente. Se o seu negócio fica um pouco além, chame no WhatsApp e a gente vê o que dá para fazer.</p></details>
+      <details><summary>Meu negócio é pequeno. Isso é para mim?</summary><p>A RDC 216 vale para qualquer serviço de alimentação, do food truck à rede. A fiscalização também. O tamanho muda o plano, nunca a obrigação.</p></details>
+      <details><summary>Recebi uma notificação com prazo. Dá tempo?</summary><p>Quase sempre, sim. O protocolo prevê prazo de adequação antes da segunda visita. Quanto antes começar, mais calmo e mais barato fica.</p></details>
+      <details><summary>Minha cozinha é limpa. Preciso mesmo de documentos?</summary><p>Precisa. Para a vigilância, cuidado sem registro é cuidado que não aconteceu. Manual de Boas Práticas e POPs são exigência legal.</p></details>
+      <details><summary>Quanto custa?</summary><p>Depende do tamanho e do estado do seu negócio, e por isso o primeiro passo é o diagnóstico. O que dá para garantir: custa menos que uma multa, e muito menos que uma interdição.</p></details>
+      <details><summary>Vou precisar fechar durante a adequação?</summary><p>Não. O plano é desenhado para rodar com a casa funcionando.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- CONTATO -->
+<section class="block reveal" id="contato" aria-label="Contato">
+  <div class="wrap cta-grid">
+    <div class="part">
+      <span class="mono" style="color:var(--accent-ink)">Fale com a Fontesan</span>
+      <h2>A visita do fiscal não tem hora marcada. A sua tranquilidade pode ter.</h2>
+      <p class="lead">Conte como é o seu negócio e a gente devolve um caminho claro, sem juridiquês. Atendimento presencial em toda a Grande São Paulo.</p>
+        <a class="btn" href="https://wa.me/5511947811422?text=Ol%C3%A1%21%20Vim%20pelo%20site%20da%20Fontesan%20e%20quero%20um%20diagn%C3%B3stico%20para%20o%20meu%20neg%C3%B3cio." target="_blank" rel="noopener">Chamar no WhatsApp</a>
+    </div>
+    <!-- TODO DEPLOY: apontar action para o endpoint do Formspree (ou planilha) e remover o modo demonstração no JS -->
+    <form id="leadform" class="part" novalidate>
+      <div class="campos">
+        <div class="field"><label for="f-nome">Seu nome</label><input id="f-nome" name="nome" type="text" autocomplete="name" required></div>
+        <div class="field"><label for="f-tipo">Tipo de negócio</label>
+          <select id="f-tipo" name="tipo" required>
+            <option value="">Escolha uma opção</option>
+            <option>Padaria</option>
+            <option>Restaurante ou cozinha</option>
+            <option>Mercado ou hortifrúti</option>
+            <option>Outro</option>
+          </select>
+        </div>
+        <div class="field"><label for="f-fone">WhatsApp ou telefone</label><input id="f-fone" name="fone" type="tel" autocomplete="tel" required></div>
+        <div class="field"><label for="f-msg">Mensagem (opcional)</label><textarea id="f-msg" name="mensagem" rows="3"></textarea></div>
+        <input class="hp" type="text" name="site" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <p class="ferro" id="f-erro" role="alert">Preencha os campos destacados para enviar.</p>
+        <p class="ffalha" id="f-falha" role="alert" tabindex="-1"></p>
+        <button class="btn" type="submit">Quero um diagnóstico</button>
+        <p class="micro">Retornamos em até um dia útil.</p>
+      </div>
+      <div class="sucesso" role="status" tabindex="-1">
+        <svg class="seal" viewBox="0 0 100 100" aria-hidden="true"><use href="#selo"/></svg>
+        <strong style="font-family:var(--disp);font-size:1.25rem">Recebido.</strong>
+        <p style="color:var(--text-secondary);margin-top:.5rem">A Fontesan fala com você em até um dia útil.</p>
+        <a class="btn" id="sucesso-wa" style="margin-top:1.2rem" href="#" target="_blank" rel="noopener">Adiantar pelo WhatsApp</a>
+      </div>
+    </form>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="fbrand"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#selo"/></svg>Fontesan</div>
+    <p>Segurança de alimentos e vigilância sanitária<br>para padarias, restaurantes e mercados.<br>
+    Grande São Paulo.</p>
+    <p><a href="https://wa.me/5511947811422?text=Ol%C3%A1%21%20Vim%20pelo%20site%20da%20Fontesan%20e%20quero%20um%20diagn%C3%B3stico%20para%20o%20meu%20neg%C3%B3cio." target="_blank" rel="noopener">(11) 94781-1422</a><br>
+    <a href="mailto:atendimento@fontesan.com">atendimento@fontesan.com</a></p>
+    <p>Responsável técnica<br>Giovanna Fontes Rios · CRN-3 67286<br>
+    Imagens ilustrativas. © <span id="ano">2026</span> Fontesan.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+'use strict';
+var clamp=function(v,lo,hi){return Math.min(hi,Math.max(lo,v))};
+var smooth=function(p,e0,e1){var t=clamp((p-e0)/(e1-e0),0,1);return t*t*(3-2*t)};
+function rng(seed){var s=seed>>>0;return function(){s=(s*1664525+1013904223)>>>0;return s/4294967296}}
+var anoEl=document.getElementById('ano');if(anoEl)anoEl.textContent=new Date().getFullYear();
+
+/* ===== Split de palavras (uma vez, com jitter semeado) ===== */
+document.querySelectorAll('.split').forEach(function(h,hi){
+  var chapter=h.closest('.chapter');var kind=chapter?chapter.dataset.entrance:'rise';
+  var text=h.textContent;var r=rng(41+hi*7);
+  var sr=document.createElement('span');sr.textContent=text;
+  sr.style.cssText='position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)';
+  var vis=document.createElement('span');vis.setAttribute('aria-hidden','true');
+  var parts=[];
+  h.childNodes.forEach(function(n){
+    if(n.nodeType===3){n.textContent.split(/\s+/).forEach(function(w){if(w)parts.push({w:w,em:false})})}
+    else if(n.nodeType===1){n.textContent.split(/\s+/).forEach(function(w){if(w)parts.push({w:w,em:true})})}
+  });
+  var total=parts.length;
+  parts.forEach(function(p,i){
+    var s=document.createElement('span');s.className='w'+(p.em?' em':'');s.textContent=p.w;
+    var th;
+    if(kind==='grid'){th=i/total*.34+r()*.06;s.style.setProperty('--jx',(28+r()*36).toFixed(0)+'px')}
+    else if(kind==='scatter'){th=r()*.4;s.style.setProperty('--jx',((r()-.5)*70).toFixed(0)+'px');s.style.setProperty('--jy',((r()-.5)*54).toFixed(0)+'px');s.style.setProperty('--jr',((r()-.5)*14).toFixed(1)+'deg')}
+    else if(kind==='punch'){th=i/total*.3+r()*.05}
+    else{th=i/total*.32+r()*.08}
+    s.style.setProperty('--th',th.toFixed(3));
+    vis.appendChild(s);vis.appendChild(document.createTextNode(' '));
+  });
+  h.textContent='';h.appendChild(sr);
+  if(kind==='blur'){
+    var soft=vis.cloneNode(true);soft.className='soft';vis.className='sharp';
+    h.appendChild(soft);h.appendChild(vis);
+  } else {h.appendChild(vis)}
+});
+
+/* ===== Capítulos: progresso, bandas, vídeos ===== */
+var chapters=[].slice.call(document.querySelectorAll('.chapter')).map(function(el,i){
+  return {el:el,stage:el.querySelector('.stage'),video:el.querySelector('video'),
+    band:el.querySelector('.band'),first:i===0,visible:false,loadedSrc:false,
+    cK:-1,cOp:-1,cKs:-1};
+});
+var vh=innerHeight;
+addEventListener('resize',function(){vh=innerHeight},{passive:true});
+
+var staticMode=false, loadK=0, loadT0=null, rafId=null, lastTick=0;
+var shown={}, target={};
+chapters.forEach(function(c,i){shown[i]=0;target[i]=0});
+
+function chapterProgress(c){
+  var r=c.el.getBoundingClientRect();
+  var total=r.height-vh;
+  return clamp(-r.top/Math.max(1,total),0,1);
+}
+function applyChapter(c,i,now){
+  var p=target[i];
+  var sm=shown[i];
+  var dt=Math.min(100,now-(lastTick||now));
+  sm+=(p-sm)*(1-Math.pow(1-.18,dt/16.667));
+  if(Math.abs(p-sm)<.0006)sm=p;
+  shown[i]=sm;
+  /* opacidade da banda */
+  var f=.09;
+  var op=(c.first?1:smooth(sm,0,f))*(1-smooth(sm,1-f,1));
+  if(i===chapters.length-1)op=(smooth(sm,0,f));
+  if(Math.abs(op-c.cOp)>.012){c.cOp=op;c.band.style.opacity=op.toFixed(3)}
+  /* k de montagem */
+  var k=clamp((sm-.06)/.24,0,1);
+  if(c.first)k=Math.max(k,loadK);
+  if(Math.abs(k-c.cK)>.008){c.cK=k;c.band.style.setProperty('--k',k.toFixed(3))}
+  /* sublinha */
+  var ks=clamp((sm-.16)/.16,0,1);if(c.first)ks=Math.max(ks,loadK);
+  if(Math.abs(ks-c.cKs)>.012){c.cKs=ks;c.band.style.setProperty('--ks',ks.toFixed(3))}
+  return Math.abs(p-sm)>.0006;
+}
+function tick(now){
+  var busy=false;
+  if(loadT0!==null&&loadK<1){loadK=clamp((now-loadT0)/1400,0,1);busy=true}
+  chapters.forEach(function(c,i){if(c.visible)busy=applyChapter(c,i,now)||busy});
+  drawLinha();
+  lastTick=now;
+  if(busy){rafId=requestAnimationFrame(tick)}else{rafId=null;lastTick=0}
+}
+function wake(){
+  if(staticMode)return;
+  chapters.forEach(function(c,i){if(c.visible)target[i]=chapterProgress(c)});
+  if(rafId===null)rafId=requestAnimationFrame(tick);
+}
+addEventListener('scroll',wake,{passive:true});
+
+/* vídeos: carregar ao aproximar, tocar só visível */
+function ensureLoaded(entry){
+  var v=entry.video;if(!v||entry.loadedSrc||staticMode)return;
+  entry.loadedSrc=true;
+  v.src=v.dataset.src;v.load();v.playbackRate=.9;
+  v.addEventListener('playing',function(){entry.stage.classList.add('video-ready')});
+  v.addEventListener('error',function(){entry.stage.classList.add('video-failed')});
+  v.addEventListener('canplay',function(){playPause(entry)});
+  playPause(entry);   /* o observer de visibilidade pode ter chegado antes do carregamento */
+}
+function playPause(entry){
+  var v=entry.video;if(!v||!entry.loadedSrc)return;
+  if(entry.visible&&!staticMode){var pr=v.play();if(pr&&pr.catch)pr.catch(function(){})}
+  else v.pause();
+}
+var nearIO=new IntersectionObserver(function(es){
+  es.forEach(function(e){
+    var c=chapters.find(function(x){return x.el===e.target});if(!c)return;
+    if(e.isIntersecting)ensureLoaded(c);
+  });
+},{rootMargin:'900px 0px'});
+var visIO=new IntersectionObserver(function(es){
+  es.forEach(function(e){
+    var c=chapters.find(function(x){return x.el===e.target});if(!c)return;
+    c.visible=e.isIntersecting;playPause(c);
+  });
+  wake();
+},{threshold:.05});
+chapters.forEach(function(c){nearIO.observe(c.el);visIO.observe(c.el)});
+
+/* vídeos de seção (restaurante, verticais): registro central */
+var sections=[].slice.call(document.querySelectorAll('.quem-video,.vslot')).map(function(slot){
+  return {slot:slot,v:slot.querySelector('video'),loaded:false,near:false};
+}).filter(function(s){return !!s.v});
+function slotLoad(s){
+  if(s.loaded)return;
+  s.loaded=true;
+  s.v.src=s.v.dataset.src;s.v.load();s.v.playbackRate=.9;
+  s.v.addEventListener('playing',function(){s.slot.classList.add('video-ready')});
+  s.v.addEventListener('error',function(){s.slot.classList.add('video-failed')});
+  s.v.addEventListener('canplay',function(){slotPlayPause(s)});
+}
+function slotPlayPause(s){
+  if(!s.loaded)return;
+  if(s.near&&!staticMode&&!document.hidden){var pr=s.v.play();if(pr&&pr.catch)pr.catch(function(){})}
+  else s.v.pause();
+}
+var secIO=new IntersectionObserver(function(es){
+  es.forEach(function(e){
+    var s=sections.find(function(x){return x.slot===e.target});if(!s)return;
+    s.near=e.isIntersecting;
+    if(s.near&&!staticMode)slotLoad(s);
+    slotPlayPause(s);
+  });
+},{rootMargin:'500px 0px'});
+sections.forEach(function(s){secIO.observe(s.slot)});
+
+/* ===== Modo estático (movimento reduzido / economia de dados), ao vivo ===== */
+var rmq=matchMedia('(prefers-reduced-motion: reduce)');
+var saveData=navigator.connection&&navigator.connection.saveData;
+function applyStatic(){
+  staticMode=rmq.matches||!!saveData;
+  document.documentElement.classList.toggle('static-mode',staticMode);
+  if(staticMode){
+    chapters.forEach(function(c){
+      if(c.video)c.video.pause();
+      c.cK=-1;c.cOp=-1;c.cKs=-1;
+      c.band.style.removeProperty('--k');c.band.style.removeProperty('--ks');c.band.style.removeProperty('opacity');
+    });
+    sections.forEach(function(s){if(s.loaded)s.v.pause()});
+    if(rafId!==null){cancelAnimationFrame(rafId);rafId=null}
+  } else {
+    chapters.forEach(function(c){c.cK=-1;c.cOp=-1;c.cKs=-1;if(c.visible){ensureLoaded(c);playPause(c)}});
+    sections.forEach(function(s){if(s.near){slotLoad(s);slotPlayPause(s)}});
+    wake();
+  }
+}
+rmq.addEventListener('change',applyStatic);
+applyStatic();
+
+/* rampa de carga da banda 1 */
+if(!staticMode){requestAnimationFrame(function(t){loadT0=t;wake()})}else{loadK=1}
+
+/* ===== Nav sólida ===== */
+var nav=document.getElementById('nav'),navSolid=false,settleSec=document.getElementById('fontesan');
+function navCheck(){
+  var s=scrollY>settleSec.offsetTop-vh*.5;
+  if(s!==navSolid){navSolid=s;nav.classList.toggle('solid',s)}
+}
+addEventListener('scroll',navCheck,{passive:true});navCheck();
+
+/* ===== Entradas abaixo da dobra ===== */
+var revIO=new IntersectionObserver(function(es){
+  es.forEach(function(e){
+    if(e.isIntersecting){
+      var sec=e.target;
+      sec.classList.add('in');
+      if(sec.classList.contains('settle'))sec.classList.add('live');
+      var retire=function(){sec.classList.add('done')};
+      sec.addEventListener('transitionend',retire,{once:true});
+      setTimeout(retire,1800);
+      revIO.unobserve(sec);
+    }
+  });
+},{threshold:.18});
+document.querySelectorAll('.reveal').forEach(function(s){revIO.observe(s)});
+
+/* ===== Contadores ===== */
+var cntIO=new IntersectionObserver(function(es){
+  es.forEach(function(e){
+    if(!e.isIntersecting)return;cntIO.unobserve(e.target);
+    var el=e.target,goal=+el.dataset.count;
+    if(rmq.matches){el.textContent=goal;return}
+    var t0=null,last='',lastAt=0;
+    function step(t){
+      if(t0===null)t0=t;
+      var p=clamp((t-t0)/1400,0,1);var val=Math.round(goal*(p*p*(3-2*p)))+'';
+      if(t-lastAt>90&&val!==last||p===1){last=val;lastAt=t;el.textContent=val}
+      if(p<1)requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  });
+},{threshold:.6});
+document.querySelectorAll('[data-count]').forEach(function(el){cntIO.observe(el)});
+
+/* ===== Linha de inspeção (desenha com o scroll) ===== */
+var como=document.getElementById('como'),linha=como.querySelector('.linha'),cDraw=-1;
+function drawLinha(){
+  var r=como.getBoundingClientRect();
+  var p=clamp((vh*.85-r.top)/(r.height),0,1);
+  if(Math.abs(p-cDraw)>.01){cDraw=p;linha.style.setProperty('--draw',p.toFixed(3))}
+}
+
+/* ===== Segure para aprovar ===== */
+var hb=document.getElementById('holdbtn'),hrow=document.getElementById('holdrow'),hstat=document.getElementById('holdstatus');
+var hold=0,holding=false,hDone=false,hRaf=null,hLast=0;
+function hTick(t){
+  var dt=Math.min(100,t-(hLast||t));hLast=t;
+  hold=clamp(hold+(holding?dt/1100:-dt/500),0,1);
+  hb.style.setProperty('--hold',hold.toFixed(3));
+  if(hold>=1&&!hDone)stampDone();
+  if((holding&&hold<1)||(!holding&&hold>0&&!hDone)){hRaf=requestAnimationFrame(hTick)}else{hRaf=null;hLast=0}
+}
+function hStart(ev){if(hDone)return;ev.preventDefault();holding=true;hstat.textContent='Segurando...';if(hRaf===null)hRaf=requestAnimationFrame(hTick)}
+function hEnd(){if(hDone)return;holding=false;if(hold>0&&hRaf===null)hRaf=requestAnimationFrame(hTick);if(hold<1)hstat.textContent='Aguardando'}
+function stampDone(){
+  hDone=true;holding=false;hold=1;hb.style.setProperty('--hold',1);
+  hrow.classList.add('stamped');hb.setAttribute('aria-pressed','true');hstat.textContent='Em dia';
+  [].slice.call(document.querySelectorAll('.passo')).forEach(function(p,i){setTimeout(function(){p.classList.add('lit')},220*i)});
+}
+hb.addEventListener('pointerdown',hStart);
+hb.addEventListener('pointerup',hEnd);
+hb.addEventListener('pointercancel',hEnd);
+hb.addEventListener('pointerleave',hEnd);
+hb.addEventListener('keydown',function(e){if((e.key===' '||e.key==='Enter')&&!e.repeat)hStart(e)});
+hb.addEventListener('keyup',function(e){if(e.key===' '||e.key==='Enter')hEnd()});
+hb.addEventListener('click',function(e){if(!hDone&&(e.detail===0||rmq.matches))stampDone()});
+
+/* ===== FAQ acessível já é nativo (details) ===== */
+
+/* ===== Formulário (modo demonstração até ligar o Formspree no deploy) ===== */
+var form=document.getElementById('leadform');
+var submitBtn=form.querySelector('button[type="submit"]');
+var submitBtnLabel=submitBtn.textContent;
+var LEADS_ENDPOINT='/web/fontesan/leads';   /* same-origin: o Nginx da Fontesan repassa esse caminho para o supportfaqagent */
+
+form.addEventListener('submit',function(e){
+  e.preventDefault();
+  var honeypot=form.querySelector('.hp').value;
+  var primeiro=null;
+  ['f-nome','f-tipo','f-fone'].forEach(function(id){
+    var el=document.getElementById(id);
+    if(!el.value){el.setAttribute('aria-invalid','true');if(!primeiro)primeiro=el}
+    else el.removeAttribute('aria-invalid');
+  });
+  if(primeiro){form.classList.add('com-erro');form.classList.remove('com-falha');primeiro.focus();return}
+  form.classList.remove('com-erro');
+  form.classList.remove('com-falha');
+
+  var nome=document.getElementById('f-nome').value;
+  var tipo=document.getElementById('f-tipo').value;
+  var fone=document.getElementById('f-fone').value;
+  var msg='Olá! Sou '+nome+', tenho um negócio do tipo '+tipo+' e quero um diagnóstico da Fontesan. Contato: '+fone;
+  var extra=document.getElementById('f-msg').value;if(extra)msg+=' · '+extra;
+  document.getElementById('sucesso-wa').href='https://wa.me/5511947811422?text='+encodeURIComponent(msg);
+
+  if(honeypot){form.classList.add('sent');requestAnimationFrame(function(){form.querySelector('.sucesso').focus()});return}
+
+  submitBtn.disabled=true;submitBtn.textContent='Enviando...';
+  fetch(LEADS_ENDPOINT,{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({nome:nome,tipo_negocio:tipo,telefone:fone,mensagem:extra||null,site:honeypot||null})
+  }).then(function(res){
+    if(res.status===429){throw new Error('rate_limited')}
+    if(!res.ok){throw new Error('http_'+res.status)}
+    return res.json();
+  }).then(function(){
+    form.classList.add('sent');
+    requestAnimationFrame(function(){form.querySelector('.sucesso').focus()});
+  }).catch(function(err){
+    form.classList.add('com-falha');
+    var falhaEl=form.querySelector('.ffalha');
+    falhaEl.textContent=(err.message==='rate_limited')
+      ? 'Muitas tentativas em pouco tempo. Espere um minuto e tente de novo, ou chame direto no WhatsApp.'
+      : 'Não deu para enviar agora. Chame direto no WhatsApp que a gente responde rapidinho.';
+    falhaEl.focus();
+  }).finally(function(){
+    submitBtn.disabled=false;submitBtn.textContent=submitBtnLabel;
+  });
+});
+
+/* ===== Pausa geral em aba oculta ===== */
+document.addEventListener('visibilitychange',function(){
+  document.body.classList.toggle('paused',document.hidden);
+  chapters.forEach(function(c){if(c.video&&c.loadedSrc){if(document.hidden)c.video.pause();else playPause(c)}});
+  sections.forEach(function(s){slotPlayPause(s)});
+});
+})();
+</script>
+</body>
+</html>

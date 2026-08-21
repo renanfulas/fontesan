@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "fontesan",
+      "runtimeExecutable": "C:\\Users\\Renan\\AppData\\Local\\Programs\\node\\npx.cmd",
+      "runtimeArgs": ["-y", "http-server", "D:/Octobox/fontesan/site", "-p", "8330", "-c-1", "--silent"],
+      "port": 8330
+    }
+  ]
+}
