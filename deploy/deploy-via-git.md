@@ -1,5 +1,11 @@
 # Deploy via Git (VPS puxando direto do GitHub)
 
+> **Status: aplicado em 2026-08-21.** `https://fontesan.com.br` está no ar seguindo
+> exatamente este guia (VPS HostGator, commit `2774b39`). Backend rodando como
+> serviço systemd `fontesan-backend`, banco `fontesan_prod`. Este documento
+> descreve tanto o passo a passo quanto o estado real do servidor — use-o
+> também como referência de "como foi montado" na próxima manutenção.
+
 Guia para a VPS clonar e atualizar o site (e depois o backend) direto de
 `github.com/renanfulas/fontesan`, sem passar arquivo por `rsync`/`scp`.
 
@@ -83,10 +89,35 @@ reiniciar no Nginx (a menos que a própria config do Nginx tenha mudado, aí sim
 `sudo nginx -t && sudo systemctl reload nginx`).
 
 Se o `backend/` mudar (rota nova, migration nova), depois do `git pull`
-também é preciso, dentro de `backend/`: reinstalar dependências se o
-`pyproject.toml` mudou (`pip install -e ".[dev]"`), aplicar migration nova
-(`python -m scripts.migrate apply`) e reiniciar o processo do backend para
-carregar o código novo.
+também é preciso, dentro de `backend/`, com o venv ativo e o `.env` carregado
+(`set -a && source .env && set +a`):
+
+```bash
+./.venv/bin/python -m pip install -e ".[dev]"     # se pyproject.toml mudou
+./.venv/bin/python -m scripts.migrate apply       # se houver migration nova
+systemctl restart fontesan-backend                # sempre, para carregar o código novo
+```
+
+## Referência do que já está montado na VPS
+
+- Serviço: `systemctl status fontesan-backend` (unit em
+  `/etc/systemd/system/fontesan-backend.service`, roda
+  `uvicorn app.main:app --host 127.0.0.1 --port 8000` como `root`,
+  `Restart=on-failure`, habilitado no boot).
+- Banco: PostgreSQL 14 nativo (sem Docker), banco `fontesan_prod`, role
+  `fontesan_app` (senha só em `/root/.fontesan_dbpass` na própria VPS).
+  Extensão `vector` **compilada do código-fonte** (`pgvector` v0.7.4): não
+  existe pacote apt pronto para PG14 no Ubuntu 22.04. `vector`/`pgcrypto`
+  foram criadas via `sudo -u postgres psql -d fontesan_prod -c 'CREATE
+  EXTENSION ...'` antes da migration 001, porque criar extensão exige
+  superusuário e o app não é superusuário.
+- Segredos: `backend/.env` (chmod 600) com `API_SECRET_KEY` e
+  `PERSISTENCE_HASH_SECRET` gerados via `openssl rand -hex 32`.
+- Exposição: Postgres e o backend só escutam em `127.0.0.1` (confirmar com
+  `ss -tlnp`); só Nginx (80/443) e SSH ficam públicos. `ufw` está inativo —
+  considerar habilitar (`ufw allow 22022,80,443 && ufw enable`, nessa ordem,
+  para não travar o próprio acesso SSH).
+- Logs do backend: `journalctl -u fontesan-backend -f`.
 
 ## fontesan.online (mais adiante)
 
