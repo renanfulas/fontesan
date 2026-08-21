@@ -22,3 +22,4 @@ Thumbs.db
 /deploy/whatsapp-bridge/.env
 /deploy/whatsapp-bridge/.env.*
 !/deploy/whatsapp-bridge/.env.example
+/deploy/whatsapp-bridge/latest-qr.png

@@ -13,6 +13,7 @@
 // So escuta em 127.0.0.1: nunca deve ficar acessivel pela internet.
 
 import { randomBytes } from 'node:crypto';
+import { unlink } from 'node:fs/promises';
 import crypto from 'crypto';
 import makeWASocket, {
   DisconnectReason,
@@ -20,7 +21,8 @@ import makeWASocket, {
   useMultiFileAuthState,
 } from '@whiskeysockets/baileys';
 import { Boom } from '@hapi/boom';
-import qrcode from 'qrcode-terminal';
+import qrcodeTerminal from 'qrcode-terminal';
+import qrcode from 'qrcode';
 import express from 'express';
 import pino from 'pino';
 
@@ -28,6 +30,10 @@ const PORT = Number(process.env.PORT || 3000);
 const HOST = process.env.HOST || '127.0.0.1';
 const AUTH_DIR = process.env.WHATSAPP_AUTH_DIR || './auth_state';
 const LOG_LEVEL = process.env.LOG_LEVEL || 'warn';
+// Caminho fixo, sobrescrito a cada novo QR emitido (a cada ~20-30s ate ser
+// escaneado). Serve so para pareamento inicial; nao guarda nada sensivel por
+// si so (o QR expira rapido).
+const QR_IMAGE_PATH = process.env.WHATSAPP_QR_IMAGE_PATH || './latest-qr.png';
 
 // Allowlist de numeros autorizados a falar com o bot, formato so-digitos (ex.
 // "5511999999999"). "*" libera geral. Vazio = ninguem passa (fail-closed).
@@ -111,7 +117,11 @@ async function startSock() {
     if (qr) {
       connectionStatus = 'awaiting_qr';
       console.log('\n[bridge] escaneie este QR code em WhatsApp > Aparelhos conectados:\n');
-      qrcode.generate(qr, { small: true });
+      qrcodeTerminal.generate(qr, { small: true });
+      qrcode
+        .toFile(QR_IMAGE_PATH, qr, { width: 512, margin: 2 })
+        .then(() => logger.info({ path: QR_IMAGE_PATH }, 'QR code tambem salvo como imagem'))
+        .catch((err) => logger.error({ err: err.message }, 'falha ao salvar QR code como imagem'));
     }
 
     if (connection === 'close') {
@@ -132,6 +142,8 @@ async function startSock() {
     } else if (connection === 'open') {
       connectionStatus = 'connected';
       logger.info('conectado ao WhatsApp');
+      // QR ja pareado e expirado; nao precisa mais ficar em disco.
+      unlink(QR_IMAGE_PATH).catch(() => {});
     }
   });
 
