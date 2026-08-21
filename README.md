@@ -1,18 +1,20 @@
 # Fontesan
 
-Site institucional da Fontesan: consultoria em segurança de alimentos e vigilância sanitária para padarias, restaurantes e mercados na Grande São Paulo.
+Site institucional e backend da Fontesan: consultoria em segurança de alimentos e vigilância sanitária para padarias, restaurantes e mercados na Grande São Paulo.
 
-Página única com scroll cinematográfico, HTML, CSS e JavaScript puros, sem build step. Sete capítulos contam a história do alimento, do olhar até a mesa, e desaguam numa única chamada para ação: WhatsApp ou formulário de diagnóstico.
+Monorepo com duas partes: o site público (`site/`) e o agente de suporte que recebe os leads do formulário (`backend/`). Vivem no mesmo repositório e na mesma VPS, atrás do mesmo Nginx.
 
 ## Estrutura
 
 ```text
-site/               deploy real: index.html + assets (vídeos, imagens, ícones)
+site/               deploy real do site: index.html + assets (vídeos, imagens, ícones)
 design-package.md   premissa da marca, paleta, tipografia, copy verbatim, mapa de capítulos
+backend/            agente de suporte (FastAPI + Postgres/pgvector) que recebe POST /web/fontesan/leads
 deploy/             config de referência do Nginx para a VPS (não aplicada automaticamente)
+.github/workflows/  CI: testes e gates do backend (backend-*.yml), varredura de segredos no repo inteiro (security.yml)
 ```
 
-## Rodar a prévia local
+## Site: rodar a prévia local
 
 O site é estático, então qualquer servidor local serve:
 
@@ -22,12 +24,26 @@ npx http-server site -p 8330
 
 Abra `http://localhost:8330`. Dois caminhos de prévia: abrir `site/index.html` direto no navegador mostra a versão estática (imagem parada, sem os vídeos que raspam com o scroll, porque navegadores bloqueiam `fetch` em `file://`); o servidor local acima mostra a experiência completa.
 
+## Backend
+
+FastAPI + PostgreSQL/pgvector. Detalhes completos de arquitetura, convenções e o mapa de documentação em [`backend/README.md`](backend/README.md) e [`backend/CLAUDE.md`](backend/CLAUDE.md).
+
+```bash
+cd backend
+python -m venv .venv
+.venv/Scripts/activate   # ou source .venv/bin/activate no Linux/Mac
+pip install -e ".[dev]"
+python -m pytest
+```
+
+O formulário de contato do site chama `POST /web/fontesan/leads` neste backend e grava direto no Postgres. A rota, a migration e o serviço ficam em `backend/app/fontesan_leads/`, `backend/app/api/routes/fontesan_leads.py` e `backend/migrations/020_fontesan_leads.sql`.
+
 ## Deploy
 
-O site roda numa VPS junto do [supportfaqagent](https://github.com/renanfulas/supportfaqagent), atrás do mesmo Nginx e mesmo domínio (same-origin, sem CORS). O formulário de contato chama `POST /web/fontesan/leads` nesse backend e grava direto no Postgres que já roda lá.
+Site e backend rodam na mesma VPS, atrás do mesmo Nginx e mesmo domínio (same-origin, sem CORS — o backend não tem `CORSMiddleware` configurado).
 
 Config de referência do Nginx, com checklist de deploy: [`deploy/nginx-fontesan.conf.example`](deploy/nginx-fontesan.conf.example).
 
 ## Vídeos brutos
 
-Os vídeos originais (antes de recortados e comprimidos para a web) não ficam neste repositório por tamanho. Estão disponíveis na [Release de vídeos brutos](https://github.com/renanfulas/fontesan/releases/tag/videos-brutos).
+Os vídeos originais do site (antes de recortados e comprimidos para a web) não ficam neste repositório por tamanho. Estão disponíveis na [Release de vídeos brutos](https://github.com/renanfulas/fontesan/releases/tag/videos-brutos).

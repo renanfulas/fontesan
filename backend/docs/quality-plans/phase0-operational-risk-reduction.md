@@ -1,0 +1,144 @@
+# Fase 0 - Reducao de Risco Operacional
+
+## Objetivo
+
+Criar os trilhos de confiabilidade antes da persistencia completa, WhatsApp
+real e promocao operacional. Esta fase evita promessa falsa de handoff,
+migration manual sem rastreio e persistencia de dados sensiveis.
+
+## Areas Tecnicas
+
+- Aplicacao, arquitetura, PostgreSQL, migrations, persistencia, contratos,
+  seguranca, testes e integracao final.
+- VPS, Docker, rede, snapshots, alertas e recuperacao.
+- Trabalho conjunto: migration em staging, teste de concorrencia, restore e
+  aprovacao dos gates.
+
+Creditos historicos e autoria de migrations antigas permanecem.
+
+## Entregas Implementadas No Repositorio
+
+- runner forward-only `python -m scripts.migrate`;
+- ledger `schema_migrations`, checksum e advisory lock;
+- migration corretiva do estado OTP `exhausted`;
+- migration de auditoria de chat, feedback confiavel e outbox;
+- pool PostgreSQL compartilhado baseado em `psycopg_pool`;
+- sanitizacao versionada antes da persistencia;
+- outbox at-least-once com idempotency key e dispatcher separado;
+- assinatura HMAC obrigatoria para entregas do dispatcher;
+- ingress interno HMAC com idempotencia persistente para consumidores HTTP
+  internos;
+- `handoff_status` no contrato interno `/chat`;
+- feedback PostgreSQL enriquecido pelo contexto confiavel do servidor;
+- rede Docker privada compartilhada e limites de logs do runtime.
+
+## Comandos
+
+```powershell
+python -m scripts.migrate status
+python -m scripts.migrate baseline
+python -m scripts.migrate apply
+python -m scripts.migrate verify
+python -m scripts.staging_phase0_preflight --snapshot-confirmed
+python -m scripts.dispatch_outbox --once
+python -m scripts.prune_operational_data
+```
+
+Use `baseline` somente quando `001` e `002` ja tiverem sido aplicadas
+manualmente. Nunca altere uma migration aplicada; crie uma nova correcao
+forward-only.
+
+O rollout de privacidade de conversas usa expand/contract. Em banco existente,
+nunca tente aplicar `006` e `007` como uma unica etapa:
+
+```powershell
+python -m scripts.migrate apply --target 006_conversations_messages.sql
+# publicar e validar o writer novo, ainda compativel com a fase expandida
+python -m scripts.backfill_conversation_privacy
+python -m scripts.backfill_conversation_privacy --verify-contract-ready
+python -m scripts.migrate apply
+python -m scripts.migrate verify
+```
+
+O backfill transforma `session_id` em HMAC, sanitiza mensagens e consolida
+conversas ativas duplicadas antes da `007` remover o identificador bruto e
+criar a unicidade por dominio, canal e hash. O mesmo
+`PERSISTENCE_HASH_SECRET` e `PERSISTENCE_HASH_VERSION` deve ser preservado em
+todas as rodadas. `--verify-contract-ready` somente pode ser executado depois
+de confirmar que nenhum writer legado continua ativo.
+
+Em banco novo, a fase contract tambem exige confirmacao explicita. Isso evita
+que um banco vazio remova `session_id` enquanto uma versao antiga da aplicacao
+ainda pode escrever.
+
+Retencao deve ser inspecionada antes da exclusao:
+
+```powershell
+python -m scripts.prune_operational_data --dry-run
+python -m scripts.prune_operational_data --batch-size 1000
+```
+
+O job usa lotes limitados e transacoes separadas. Ele nunca remove eventos
+`pending`, `retryable_failed` ou `dead_letter`; somente eventos
+`delivered` e receipts entregues ultrapassando o horizonte configurado sao
+elegiveis para limpeza. O horizonte define tambem por quanto tempo a
+idempotencia historica desses eventos permanece consultavel.
+Feedback expirado e removido antes de auditorias; uma auditoria referenciada
+por feedback ainda retido nunca e apagada.
+
+## Gates
+
+- pgvector normal: `>=74/78`;
+- `70-73`: exige relatorio e aprovacao conjunta;
+- `<70`: bloqueia promocao;
+- banco novo e banco com baseline devem aplicar migrations;
+- quinta tentativa OTP deve terminar em `exhausted`;
+- payload persistido e outbox nao podem conter PII ou secrets;
+- handoff nao enfileirado deve informar indisponibilidade;
+- restore deve medir `RPO <= 24h` e `RTO <= 4h`.
+
+## Pendencias Externas
+
+- criar e testar snapshots no provedor;
+- executar restore cronometrado em ambiente isolado;
+- configurar alertas reais de disco;
+- criar ou validar a rede `supportfaq_internal` no runtime quando houver mais
+  de um servico privado ativo;
+- configurar URLs privadas consumidas pelo dispatcher quando houver consumidor
+  HTTP ativo;
+- repetir os gates SQL e concorrencia no PostgreSQL de staging depois do
+  snapshot; a prova local real ja passou com `20 passed`;
+- reingerir o dominio e revalidar os quatro casos recalibrados da gate.
+- confirmar em smoke privado se o consumidor HTTP final honra
+  `X-Idempotency-Key`; sem isso, timeout incerto continua exigindo
+  reconciliacao manual por causa da semantica at-least-once. Este item nao
+  bloqueia a Fase 0 enquanto nao houver consumidor externo ativo.
+
+Para o restore cronometrado, o passo a passo turnkey no host restaurado e o
+agregador de evidencia (RTO/RPO com metas `<= 4h` / `<= 24h`) estao na secao
+"Run-Sheet Do Host Restaurado" de `docs/runbooks/phase0-snapshot-restore.md`,
+apoiados pelo helper somente leitura `scripts/phase0_restore_validate.py`. Isso
+prepara a execucao operacional; a decisao so vira `approved` depois do restore
+real medido em ambiente isolado.
+
+O saneamento offline desses casos esta registrado em
+`docs/quality-plans/pgvector-gate-backlog-2026-06-11.md`.
+As evidencias e bloqueios do host local estao registrados em
+`docs/archive/historical-reports/local-phase0-validation-report-2026-06-12.md`.
+
+Enquanto essas evidencias nao existirem, a Fase 0 esta implementada no
+repositorio, mas nao validada operacionalmente.
+
+## Hardening Local Concluido
+
+Os quatro hardenings encontrados depois do PR `#64` foram fechados e validados
+em 15/06/2026:
+
+- trava contra testes PostgreSQL destrutivos em banco nao descartavel;
+- readiness fail-closed em staging e producao sem PostgreSQL;
+- deteccao de drift estrutural em `migrate verify` e readiness;
+- readiness real contra PostgreSQL no job de CI.
+
+A evidencia esta em
+`docs/runbooks/local-phase0-hardening-report-2026-06-15.md`. Esses controles
+nao substituem snapshot, restore, rede privada ou smokes do staging oficial.

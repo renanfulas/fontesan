@@ -1,0 +1,94 @@
+from pathlib import Path
+
+from app.core.errors import ProviderError, RetrievalError
+from app.domain_engine.models import DomainConfig, DomainHandoffConfig
+from app.orchestration.chat_flow import ChatFlowService
+from app.retrieval.models import RetrievedChunk
+
+
+def make_domain() -> DomainConfig:
+    return DomainConfig(
+        name="test-domain",
+        display_name="Test Domain",
+        root_path=Path("."),
+        handoff=DomainHandoffConfig(
+            explicit_human_phrases=["ajuda humana"],
+        ),
+    )
+
+
+class FailingRetrievalService:
+    def retrieve(self, domain: DomainConfig, question: str) -> list[RetrievedChunk]:
+        raise RetrievalError("failed")
+
+
+class WorkingRetrievalService:
+    def retrieve(self, domain: DomainConfig, question: str) -> list[RetrievedChunk]:
+        return [
+            RetrievedChunk(
+                source="source.md",
+                title="Source",
+                text="Context",
+                score=1.0,
+            )
+        ]
+
+
+class FailingLLMService:
+    def get_provider(
+        self,
+        domain: DomainConfig,
+        api_key: str | None = None,
+    ):
+        raise ProviderError("failed", failure_kind="provider_timeout")
+
+
+def test_chat_flow_returns_observable_retrieval_error() -> None:
+    service = ChatFlowService()
+    service.retrieval_service = FailingRetrievalService()
+
+    response = service.answer(
+        domain=make_domain(),
+        question="hello",
+        request_id="req-1",
+    )
+
+    assert response["request_id"] == "req-1"
+    assert response["error_code"] == "retrieval_error"
+    assert response["escalated"] is True
+    assert "retrieval_error" in response["handoff_reasons"]
+
+
+def test_chat_flow_returns_observable_provider_error() -> None:
+    service = ChatFlowService()
+    service.retrieval_service = WorkingRetrievalService()
+    service.llm_service = FailingLLMService()
+
+    response = service.answer(
+        domain=make_domain(),
+        question="hello",
+        request_id="req-2",
+    )
+
+    assert response["request_id"] == "req-2"
+    assert response["error_code"] == "provider_error"
+    assert response["provider_failure_kind"] == "provider_timeout"
+    assert response["escalated"] is True
+    assert "provider_error" in response["handoff_reasons"]
+    assert "provider_timeout" not in response["handoff_reasons"]
+
+
+def test_chat_flow_keeps_references_for_explicit_human_request() -> None:
+    service = ChatFlowService()
+    service.retrieval_service = WorkingRetrievalService()
+
+    response = service.answer(
+        domain=make_domain(),
+        question="Preciso de ajuda humana para verificar o servidor.",
+        request_id="req-3",
+    )
+
+    assert response["request_id"] == "req-3"
+    assert response["escalated"] is True
+    assert "explicit_human_request" in response["handoff_reasons"]
+    assert response["references"] == ["source.md"]

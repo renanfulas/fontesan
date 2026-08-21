@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Suporte VPS & WhatsApp</title>
+    <link rel="stylesheet" href="/chat-assets/styles.css" />
+  </head>
+  <body>
+    <main class="chat-shell" aria-label="Chat de suporte">
+      <section class="chat-window" aria-live="polite">
+        <header class="chat-header">
+          <div class="avatar" aria-hidden="true">SF</div>
+          <div>
+            <span class="header-kicker">HostGator support flow</span>
+            <h1>Suporte VPS & WhatsApp</h1>
+            <p>triagem técnica com contexto, referência e escalonamento quando precisar</p>
+          </div>
+        </header>
+
+        <section class="chat-intro" aria-label="Como funciona">
+          <div class="intro-signals" aria-label="Sinais do atendimento">
+            <span class="signal-pill">Sem login no V0</span>
+            <span class="signal-pill">Código de suporte por resposta</span>
+            <span class="signal-pill">Escalonamento humano quando necessário</span>
+          </div>
+          <p>
+            Descreva sua dúvida sobre VPS, WhatsApp ou automações com o máximo de
+            contexto útil. Eu respondo com base na documentação do domínio atual e,
+            se o caso ficar sensível ou incompleto, sinalizo continuidade humana.
+          </p>
+        </section>
+
+        <div id="messages" class="messages"></div>
+
+        <section class="quick-prompts" aria-labelledby="quick-prompts-title">
+          <div class="quick-prompts-header">
+            <h2 id="quick-prompts-title">Perguntas rápidas</h2>
+          </div>
+          <div id="quick-prompts-list" class="quick-prompts-list"></div>
+        </section>
+
+        <form id="chat-form" class="composer" autocomplete="off">
+          <label class="sr-only" for="message-input">Digite sua mensagem</label>
+          <textarea
+            id="message-input"
+            name="message"
+            rows="1"
+            maxlength="4000"
+            placeholder="Ex.: meu QR Code não aparece na Evolution API. O que devo checar primeiro?"
+            required
+          ></textarea>
+          <button id="send-button" type="submit" aria-label="Enviar mensagem">
+            <svg
+              aria-hidden="true"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="m22 2-7 20-4-9-9-4Z" />
+              <path d="M22 2 11 13" />
+            </svg>
+          </button>
+        </form>
+        <p class="composer-note">
+          Quanto melhor o contexto, melhor a triagem. Se eu não tiver base suficiente,
+          devolvo um código para continuidade no suporte.
+        </p>
+      </section>
+    </main>
+
+    <script src="/chat-assets/app.js" defer></script>
+  </body>
+</html>
