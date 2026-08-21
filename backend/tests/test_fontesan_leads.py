@@ -5,6 +5,9 @@ from app.core.config import get_settings
 from app.main import create_app
 
 
+API_KEY_HEADER = {"X-API-Key": "local-dev-api-key"}
+
+
 @pytest.fixture
 def client() -> TestClient:
     # A fresh app per test gives a fresh in-memory rate limiter, so tests in
@@ -169,3 +172,25 @@ def test_fontesan_leads_rate_limit_returns_429_with_retry_after(
         assert "Retry-After" in second.headers
     finally:
         get_settings.cache_clear()
+
+
+def test_list_leads_requires_api_key(client: TestClient) -> None:
+    response = client.get("/internal/fontesan-leads")
+
+    assert response.status_code == 403
+
+
+def test_list_leads_rejects_wrong_api_key(client: TestClient) -> None:
+    response = client.get(
+        "/internal/fontesan-leads",
+        headers={"X-API-Key": "not-the-right-key"},
+    )
+
+    assert response.status_code == 403
+
+
+def test_list_leads_returns_empty_list_without_persistence(client: TestClient) -> None:
+    response = client.get("/internal/fontesan-leads", headers=API_KEY_HEADER)
+
+    assert response.status_code == 200
+    assert response.json() == {"leads": []}

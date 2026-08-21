@@ -64,3 +64,16 @@ class FontesanLeadResponse(BaseModel):
     accepted: bool
     status: str
     storage: str
+
+
+class FontesanLeadRecord(BaseModel):
+    lead_id: str
+    nome: str
+    tipo_negocio: str
+    telefone: str
+    mensagem: str | None
+    created_at: str
+
+
+class FontesanLeadListResponse(BaseModel):
+    leads: list[FontesanLeadRecord]

@@ -1,0 +1,104 @@
+import { useEffect, useId, useRef, useState, type KeyboardEvent } from "react";
+import { ArrowUp } from "lucide-react";
+import { CHAT_MAX_LEN, sanitizeUserText } from "@/lib/validation";
+
+type Props = {
+  onSend: (text: string) => void;
+  disabled?: boolean;
+  value?: string;
+  onValueChange?: (v: string) => void;
+};
+
+export function Composer({ onSend, disabled, value, onValueChange }: Props) {
+  const [internal, setInternal] = useState("");
+  const text = value ?? internal;
+  const setText = (v: string) => {
+    const safe = sanitizeUserText(v).slice(0, CHAT_MAX_LEN);
+    if (onValueChange) onValueChange(safe);
+    else setInternal(safe);
+  };
+  const ref = useRef<HTMLTextAreaElement>(null);
+  const hintId = useId();
+  const counterId = useId();
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    el.style.height = "auto";
+    el.style.height = Math.min(el.scrollHeight, 240) + "px";
+  }, [text]);
+
+  function submit() {
+    const v = sanitizeUserText(text).trim();
+    if (!v || disabled) return;
+    onSend(v);
+    setText("");
+  }
+
+  function onKeyDown(e: KeyboardEvent<HTMLTextAreaElement>) {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      submit();
+    }
+  }
+
+  const remaining = CHAT_MAX_LEN - text.length;
+  const nearLimit = remaining <= 100;
+  const overLimit = remaining < 0;
+
+  return (
+    <div className="mx-auto w-full max-w-3xl px-4">
+      <div className="group relative overflow-hidden rounded-[1.35rem] border border-border bg-card shadow-[0_18px_60px_-32px_rgba(20,40,20,0.18)] transition focus-within:border-primary/60">
+        <label htmlFor={`${hintId}-input`} className="sr-only">
+          Mensagem para o suporte da Fontesan
+        </label>
+        <textarea
+          id={`${hintId}-input`}
+          ref={ref}
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          onKeyDown={onKeyDown}
+          rows={1}
+          disabled={disabled}
+          maxLength={CHAT_MAX_LEN}
+          aria-describedby={`${hintId} ${counterId}`}
+          aria-invalid={overLimit || undefined}
+          spellCheck
+          autoComplete="off"
+          placeholder="Conte o que está acontecendo no seu negócio..."
+          className="block w-full resize-none bg-transparent px-5 pb-16 pt-4 text-[15px] leading-relaxed text-foreground placeholder:text-muted-foreground focus:outline-none disabled:opacity-60"
+        />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 flex items-center justify-between gap-2 px-4 pb-3">
+          <span id={hintId} className="hidden truncate text-[11px] text-muted-foreground sm:inline">
+            Enter envia / Shift+Enter quebra linha
+          </span>
+          <div className="flex items-center gap-2">
+            <span
+              id={counterId}
+              aria-live="polite"
+              className={
+                "text-[11px] tabular-nums " +
+                (overLimit
+                  ? "font-medium text-destructive"
+                  : nearLimit
+                    ? "text-foreground"
+                    : "text-muted-foreground")
+              }
+            >
+              {text.length}/{CHAT_MAX_LEN}
+            </span>
+            <button
+              type="button"
+              onClick={submit}
+              disabled={disabled || !text.trim() || overLimit}
+              aria-label="Enviar mensagem"
+              className="pointer-events-auto flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground shadow-sm transition hover:brightness-110 disabled:cursor-not-allowed disabled:bg-muted disabled:text-muted-foreground"
+            >
+              <ArrowUp className="h-4 w-4" />
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

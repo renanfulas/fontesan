@@ -14,6 +14,7 @@ from app.api.routes import (
     domains,
     feedback,
     fontesan_leads,
+    fontesan_leads_admin,
     health,
     ingestion,
     hermes_chat,
@@ -319,6 +320,11 @@ def create_app() -> FastAPI:
     )
     application.include_router(
         fontesan_leads.router, prefix="/web/fontesan/leads", tags=["fontesan-leads"]
+    )
+    application.include_router(
+        fontesan_leads_admin.router,
+        prefix="/internal/fontesan-leads",
+        tags=["fontesan-leads-admin"],
     )
     # Console staff: superficie administrativa montada so quando ligada. Com a
     # flag off a rota nem existe (404 do FastAPI, fora do OpenAPI) — dark by

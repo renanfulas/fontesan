@@ -15,7 +15,12 @@ from app.api.schemas.feedback import (
     safe_feedback_identifier,
     safe_feedback_source,
 )
-from app.api.schemas.fontesan_leads import FontesanLeadRequest, FontesanLeadResponse
+from app.api.schemas.fontesan_leads import (
+    FontesanLeadListResponse,
+    FontesanLeadRecord,
+    FontesanLeadRequest,
+    FontesanLeadResponse,
+)
 from app.core.errors import DatabaseUnavailableError, TransactionBusinessError
 from app.core.logging import log_event
 from app.core.persistence_sanitize import (
@@ -946,6 +951,37 @@ class OperationalRepository:
             accepted=True,
             status="accepted",
             storage="postgres",
+        )
+
+    def list_fontesan_leads(self, limit: int = 200) -> FontesanLeadListResponse:
+        if not self.runtime.persistence_enabled:
+            return FontesanLeadListResponse(leads=[])
+
+        with self.runtime.transaction() as connection:
+            with connection.cursor() as cursor:
+                cursor.execute(
+                    """
+                    SELECT id, nome, tipo_negocio, telefone, mensagem, created_at
+                    FROM fontesan_leads
+                    ORDER BY created_at DESC
+                    LIMIT %s
+                    """,
+                    (limit,),
+                )
+                rows = cursor.fetchall()
+
+        return FontesanLeadListResponse(
+            leads=[
+                FontesanLeadRecord(
+                    lead_id=str(row[0]),
+                    nome=row[1],
+                    tipo_negocio=row[2],
+                    telefone=row[3],
+                    mensagem=row[4],
+                    created_at=row[5].isoformat(),
+                )
+                for row in rows
+            ]
         )
 
     def _find_feedback_audit(

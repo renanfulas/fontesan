@@ -1,0 +1,70 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: "Public Sans", system-ui, sans-serif;
+  --font-display: "Fraunces", serif;
+  --font-mono: "IBM Plex Mono", monospace;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-ring: var(--ring);
+}
+
+/* Paleta Fontesan (mesmos tokens de site/index.html). */
+:root {
+  --radius: 1rem;
+  --background: #f5eee1;
+  --foreground: #1f3826;
+  --card: #fbf7ee;
+  --card-foreground: #1f3826;
+  --primary: #16281c;
+  --primary-foreground: #f2ecdd;
+  --muted: #ece2cf;
+  --muted-foreground: #5d6d54;
+  --accent: #d9821b;
+  --accent-foreground: #1c130a;
+  --destructive: oklch(0.5 0.2 25);
+  --destructive-foreground: #fbf7ee;
+  --border: rgba(31, 56, 38, 0.14);
+  --ring: #d9821b;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  body {
+    background: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    font-size: 1.0625rem;
+    line-height: 1.6;
+  }
+
+  h1,
+  h2,
+  h3,
+  .font-display {
+    font-family: var(--font-display);
+    font-weight: 600;
+    line-height: 1.12;
+    letter-spacing: -0.01em;
+  }
+
+  :where(button, a, [role="button"], input, textarea, select):focus-visible {
+    outline: 2px solid var(--color-ring);
+    outline-offset: 2px;
+    border-radius: calc(var(--radius) - 6px);
+  }
+}

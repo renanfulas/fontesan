@@ -1,4 +1,8 @@
-from app.api.schemas.fontesan_leads import FontesanLeadRequest, FontesanLeadResponse
+from app.api.schemas.fontesan_leads import (
+    FontesanLeadListResponse,
+    FontesanLeadRequest,
+    FontesanLeadResponse,
+)
 from app.db.operational import OperationalRepository
 from app.db.runtime import DatabaseRuntime
 
@@ -18,3 +22,8 @@ class FontesanLeadService:
                 storage="pending_persistence",
             )
         return OperationalRepository(self.runtime).record_fontesan_lead(lead)
+
+    def list_leads(self, limit: int = 200) -> FontesanLeadListResponse:
+        if self.runtime is None:
+            return FontesanLeadListResponse(leads=[])
+        return OperationalRepository(self.runtime).list_fontesan_leads(limit=limit)
