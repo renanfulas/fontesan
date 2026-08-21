@@ -30,4 +30,4 @@ Config de referência do Nginx, com checklist de deploy: [`deploy/nginx-fontesan
 
 ## Vídeos brutos
 
-Os vídeos originais (antes de recortados e comprimidos para a web) não ficam neste repositório por tamanho. Estão disponíveis na [Release de assets brutos](../../releases).
+Os vídeos originais (antes de recortados e comprimidos para a web) não ficam neste repositório por tamanho. Estão disponíveis na [Release de vídeos brutos](https://github.com/renanfulas/fontesan/releases/tag/videos-brutos).
