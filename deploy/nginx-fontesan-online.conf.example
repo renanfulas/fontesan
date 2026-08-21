@@ -1,0 +1,55 @@
+# Referência de configuração Nginx para fontesan.online (VPS HostGator).
+# Serve o frontend novo (frontend/dist, SPA estática) na raiz e repassa
+# /web/*, /internal/* e /chat pro mesmo supportfaqagent que já atende
+# fontesan.com.br em 127.0.0.1:8000. Mesma VPS, domínio diferente — cada
+# domínio same-origin com sua própria API, sem CORS.
+
+server {
+    listen 80;
+    listen [::]:80;
+    server_name fontesan.online www.fontesan.online;
+
+    root /var/www/fontesan/frontend/dist;
+    index index.html;
+
+    # SPA: qualquer rota client-side (ex: /leads) cai no index.html.
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+
+    location ~* \.(js|css|svg|png|jpg|jpeg|webp)$ {
+        try_files $uri =404;
+        add_header Cache-Control "public, max-age=2592000, immutable";
+    }
+
+    location /web/ {
+        proxy_pass http://127.0.0.1:8000;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    location /internal/ {
+        proxy_pass http://127.0.0.1:8000;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
+
+# Checklist de deploy (nesta ordem):
+#   1. Na VPS: cd /var/www/fontesan/frontend && npm install && npm run build
+#      (gera dist/, é isso que o "root" acima serve).
+#   2. Copiar este arquivo para /etc/nginx/sites-available/fontesan-online.conf,
+#      criar o link em sites-enabled, nginx -t, systemctl reload nginx.
+#   3. certbot --nginx -d fontesan.online -d www.fontesan.online
+#      (cria o bloco 443 sozinho, igual já fez para fontesan.com.br).
+#   4. Testar de fora: curl -i https://fontesan.online/
+#   5. Depois de qualquer mudança no frontend: git pull, npm run build,
+#      nada para reiniciar (Nginx serve os arquivos direto).
+#   6. Depois de qualquer mudança no backend: git pull, migration se houver,
+#      systemctl restart fontesan-backend (mesmo serviço dos dois domínios).
