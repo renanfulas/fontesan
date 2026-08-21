@@ -9,6 +9,7 @@ Monorepo com duas partes: o site público (`site/`) e o agente de suporte que re
 ```text
 site/               deploy real do site: index.html + assets (vídeos, imagens, ícones)
 design-package.md   premissa da marca, paleta, tipografia, copy verbatim, mapa de capítulos
+branding/           identidade da marca: logo, brand book e estratégia (ainda fora do site)
 backend/            agente de suporte (FastAPI + Postgres/pgvector) que recebe POST /web/fontesan/leads
 deploy/             config de referência do Nginx para a VPS (não aplicada automaticamente)
 .github/workflows/  CI: testes e gates do backend (backend-*.yml), varredura de segredos no repo inteiro (security.yml)
@@ -23,6 +24,10 @@ npx http-server site -p 8330
 ```
 
 Abra `http://localhost:8330`. Dois caminhos de prévia: abrir `site/index.html` direto no navegador mostra a versão estática (imagem parada, sem os vídeos que raspam com o scroll, porque navegadores bloqueiam `fetch` em `file://`); o servidor local acima mostra a experiência completa.
+
+## Marca
+
+Identidade visual, brand book e estratégia de marketing em [`branding/`](branding/). Comece pelo [brand board](branding/assets-png/brandboard.png), que mostra a marca inteira numa imagem só. Nada de `branding/` está aplicado no site ainda.
 
 ## Backend
 
