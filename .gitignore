@@ -13,3 +13,12 @@
 
 .DS_Store
 Thumbs.db
+
+# Bridge de WhatsApp (Baileys): node_modules, segredos reais e, sobretudo, a
+# sessão pareada (auth_state) nunca podem ir pro repositório — a sessão
+# equivale a um login ativo do número real da Fontesan no WhatsApp.
+/deploy/whatsapp-bridge/node_modules/
+/deploy/whatsapp-bridge/auth_state/
+/deploy/whatsapp-bridge/.env
+/deploy/whatsapp-bridge/.env.*
+!/deploy/whatsapp-bridge/.env.example

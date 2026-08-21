@@ -1,0 +1,28 @@
+# Copiar para /etc/systemd/system/fontesan-whatsapp-bridge.service na VPS,
+# ajustar caminhos se necessario, depois:
+#   sudo systemctl daemon-reload
+#   sudo systemctl enable --now fontesan-whatsapp-bridge
+#
+# Acompanhar o QR code de pareamento (so aparece na primeira vez, ou apos
+# logout manual no proprio WhatsApp):
+#   sudo journalctl -u fontesan-whatsapp-bridge -f
+
+[Unit]
+Description=Fontesan WhatsApp Bridge (Baileys)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/var/www/fontesan/deploy/whatsapp-bridge
+EnvironmentFile=/var/www/fontesan/deploy/whatsapp-bridge/.env
+ExecStart=/usr/bin/node /var/www/fontesan/deploy/whatsapp-bridge/bridge.js
+Restart=on-failure
+RestartSec=5
+# So conversa com localhost (backend na mesma maquina); nao precisa de rede
+# externa alem da propria conexao ao WhatsApp.
+User=root
+NoNewPrivileges=true
+
+[Install]
+WantedBy=multi-user.target
