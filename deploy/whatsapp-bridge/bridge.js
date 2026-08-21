@@ -14,7 +14,11 @@
 
 import { randomBytes } from 'node:crypto';
 import crypto from 'crypto';
-import makeWASocket, { DisconnectReason, useMultiFileAuthState } from '@whiskeysockets/baileys';
+import makeWASocket, {
+  DisconnectReason,
+  fetchLatestBaileysVersion,
+  useMultiFileAuthState,
+} from '@whiskeysockets/baileys';
 import { Boom } from '@hapi/boom';
 import qrcode from 'qrcode-terminal';
 import express from 'express';
@@ -85,9 +89,15 @@ async function forwardToBackend(event) {
 
 async function startSock() {
   const { state, saveCreds } = await useMultiFileAuthState(AUTH_DIR);
+  // Sem isso, a lib usa uma versao do protocolo WhatsApp Web pinada no pacote,
+  // que fica desatualizada com o tempo e faz o servidor fechar a conexao
+  // (statusCode 405) antes mesmo de emitir o QR code.
+  const { version, isLatest } = await fetchLatestBaileysVersion();
+  logger.info({ version, isLatest }, 'usando versao do protocolo WhatsApp Web');
 
   sock = makeWASocket({
     auth: state,
+    version,
     logger: pino({ level: LOG_LEVEL }),
     // Identidade do "aparelho" pareado, aparece em Aparelhos Conectados no app.
     browser: ['Fontesan Bot', 'Chrome', '1.0'],
@@ -110,7 +120,12 @@ async function startSock() {
       const loggedOut = statusCode === DisconnectReason.loggedOut;
       logger.warn({ statusCode, loggedOut }, 'connection closed');
       if (!loggedOut) {
-        startSock();
+        // Pequeno atraso para nao martelar reconexao contra o servidor do
+        // WhatsApp em loop apertado (evita parecer trafego automatizado
+        // agressivo e da tempo de uma falha transitoria de rede passar).
+        setTimeout(() => {
+          startSock();
+        }, 3000);
       } else {
         logger.error('sessao deslogada no proprio WhatsApp; apague auth_state e repareie com QR novo');
       }
