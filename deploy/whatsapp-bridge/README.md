@@ -77,8 +77,13 @@ mesmo padrão em outro projeto.
    - O QR code aparece no `journalctl` acima.
    - No celular: WhatsApp > Configurações > Aparelhos conectados > Conectar
      um aparelho > escanear o QR.
+   - **Alternativa sem câmera**: setar `WHATSAPP_PAIRING_PHONE_NUMBER` no
+     `.env` do bridge (só dígitos com DDI, ex. `5511947811422` — normalmente o
+     mesmo número que está sendo pareado) faz o bridge gerar um **código
+     curto** no lugar do QR, digitado em WhatsApp > Aparelhos conectados >
+     Conectar um aparelho > Conectar com número de telefone.
    - A sessão fica salva em `/var/www/fontesan/deploy/whatsapp-bridge/auth_state/` —
-     reinícios do serviço não pedem QR de novo, só um logout manual no
+     reinícios do serviço não pedem QR/código de novo, só um logout manual no
      próprio celular exige repetir este passo.
 
 7. **Smoke test** com o número de teste da allowlist: mandar "oi" pelo

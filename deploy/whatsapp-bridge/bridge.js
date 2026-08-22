@@ -34,6 +34,10 @@ const LOG_LEVEL = process.env.LOG_LEVEL || 'warn';
 // escaneado). Serve so para pareamento inicial; nao guarda nada sensivel por
 // si so (o QR expira rapido).
 const QR_IMAGE_PATH = process.env.WHATSAPP_QR_IMAGE_PATH || './latest-qr.png';
+// Alternativa ao QR: parear digitando um codigo curto direto no WhatsApp
+// (Aparelhos conectados > Conectar com numero de telefone). So-digitos com
+// DDI, ex. "5511999999999". Deixe vazio para usar QR normalmente.
+const PAIRING_PHONE_NUMBER = (process.env.WHATSAPP_PAIRING_PHONE_NUMBER || '').replace(/\D/g, '');
 
 // Allowlist de numeros autorizados a falar com o bot, formato so-digitos (ex.
 // "5511999999999"). "*" libera geral. Vazio = ninguem passa (fail-closed).
@@ -110,6 +114,22 @@ async function startSock() {
   });
 
   sock.ev.on('creds.update', saveCreds);
+
+  if (PAIRING_PHONE_NUMBER && !sock.authState.creds.registered) {
+    // Baileys recomenda um pequeno atraso apos abrir o socket antes de pedir
+    // o codigo, para o handshake inicial assentar.
+    setTimeout(async () => {
+      try {
+        const code = await sock.requestPairingCode(PAIRING_PHONE_NUMBER);
+        connectionStatus = 'awaiting_pairing_code';
+        console.log(`\n[bridge] CODIGO DE PAREAMENTO: ${code}\n`);
+        console.log('[bridge] no celular: WhatsApp > Aparelhos conectados > Conectar um aparelho > Conectar com numero de telefone\n');
+        logger.info({ code }, 'codigo de pareamento gerado');
+      } catch (err) {
+        logger.error({ err: err.message }, 'falha ao solicitar codigo de pareamento');
+      }
+    }, 3000);
+  }
 
   sock.ev.on('connection.update', (update) => {
     const { connection, lastDisconnect, qr } = update;
