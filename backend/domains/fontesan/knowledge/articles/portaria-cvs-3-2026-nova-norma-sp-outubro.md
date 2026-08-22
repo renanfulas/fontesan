@@ -2,12 +2,13 @@
 
 Assunto de alta prioridade para clientes agora (segunda metade de 2026): a norma estadual que rege boas práticas em São Paulo está mudando, com prazo curto de adequação. Use este artigo para responder "o que muda na lei" ou "preciso me adequar a alguma novidade".
 
+**Fonte primária deste artigo:** texto integral publicado no Diário Oficial do Estado de São Paulo de 06/07/2026, Seção 1, p. 51 (`ses.sp.bvs.br/wp-content/uploads/2026/07/E_PT-CVS-3_030726.pdf`, 18 páginas). Todos os números abaixo foram conferidos contra esse texto em 22/08/2026. Quando um cliente pedir a referência exata, mande a fonte oficial, nunca um resumo de terceiros.
+
 ## Linha do tempo
 
-- Publicada em 03/07/2026 (Portaria CVS nº 3, de 03/07/2026).
-- Entra em vigor 90 dias após a publicação: **04/10/2026**.
-- A partir dessa data, revoga a Portaria CVS-5/2013. Até 04/10/2026, a CVS-5/2013 continua valendo.
-- Isso dá aproximadamente 3 meses de janela de adequação a partir da publicação.
+- Publicada em 03/07/2026 (Portaria CVS nº 3, de 03/07/2026), publicada no DOE em 06/07/2026.
+- Art. 3º: entra em vigor 90 dias após a publicação — **04/10/2026**.
+- Art. 4º: revoga a Portaria CVS-5/2013 após esses mesmos 90 dias. Até lá, a CVS-5/2013 continua valendo.
 
 ## Principais mudanças que o cliente precisa conhecer
 
@@ -20,7 +21,7 @@ Assunto de alta prioridade para clientes agora (segunda metade de 2026): a norma
 - Coprocultura e parasitológico passam a ser exames anuais obrigatórios para todos os manipuladores, inclusive quem só lida com alimento já embalado.
 - Curso de boas práticas com carga horária mínima de 8 horas passa a ser obrigatório para todos os manipuladores, com comprovação nominal (programa próprio ou terceirizado de educação permanente).
 - Tempo de higienização das mãos passa de 3 minutos para 40 segundos (ou conforme especificação do fabricante do produto usado).
-- Uso de máscara deixa de ser proibido durante o preparo, desde que esteja documentado em procedimento escrito.
+- Uso de máscara **não é obrigatório** durante a manipulação e o preparo. Quando usada, deve ser descartável, e os critérios de uso e a frequência de troca precisam estar documentados em procedimento escrito (art. 21, §3º).
 - Barba e bigode completamente raspados; proibição de cílios e unhas postiças; uso obrigatório de rede ou touca.
 
 **Temperatura e monitoramento**

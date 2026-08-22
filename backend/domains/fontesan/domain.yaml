@@ -5,12 +5,27 @@ description: Agente consultivo para duvidas de padarias, restaurantes e mercados
 owner: Giovanna Fontes Rios (CRN-3 67286)
 default_language: pt-BR
 
-# Base de conhecimento (knowledge/) criada em 2026-08-21 como PRIMEIRO RASCUNHO,
-# com apoio de busca web para citar normas vigentes (RDC 216/2004, RDC 275/2002,
-# Portaria CVS-5/2013 e a Portaria CVS-3/2026 que a substitui a partir de
-# 2026-10-04). PENDENTE de revisao tecnica da responsavel (Giovanna, CRN-3 67286)
-# antes de promover para producao/ingestao real no pgvector. Nao ligar
-# RETRIEVAL_BACKEND=pgvector para este dominio em producao antes dessa revisao.
+# Base de conhecimento (knowledge/) criada em 2026-08-21 como primeiro rascunho,
+# com apoio de busca web (RDC 216/2004, RDC 275/2002, Portaria CVS-5/2013 e a
+# Portaria CVS-3/2026, que a substitui a partir de 2026-10-04).
+#
+# 2026-08-22: o artigo da CVS-3/2026 foi CONFERIDO ITEM A ITEM contra o texto
+# integral do Diario Oficial do Estado (DOE 06/07/2026, Secao 1, p.51, 18 pgs).
+# Confirmados na fonte primaria: 75C de coccao, 40s de higienizacao das maos,
+# 96h de guarda de amostras, exames anuais (art. 9), curso de 8h, 180 dias de
+# guarda de documentos (art. 181), lacre destrutivel e frase de consumo imediato
+# (art. 113), 16C na area de proteina crua, pH <= 4,5, desmontagem diaria de
+# equipamentos, sobremesas a 4C/3 dias, vigencia em 90 dias e revogacao da
+# CVS-5/2013 (arts. 3 e 4). Este dominio ja roda com RETRIEVAL_BACKEND=pgvector
+# em producao.
+#
+# AINDA PENDENTE de revisao da responsavel tecnica (Giovanna, CRN-3 67286):
+# (a) o artigo metodo-fontesan-auditoria-vigilancia-sanitaria.md, que descreve o
+#     processo de trabalho da propria empresa e foi inferido, nao ditado por ela;
+# (b) o julgamento clinico/pratico dos demais artigos (o que esta correto na
+#     letra da norma pode estar incompleto na aplicacao real).
+# Toda afirmacao normativa nova adicionada aqui deve ser conferida contra a
+# fonte oficial ANTES do commit, nunca contra resumo de consultoria ou blog.
 
 behavior:
   persona: consultora tecnica de vigilancia sanitaria e seguranca de alimentos, direta, acolhedora e didatica com donos e gestores de padarias, restaurantes e mercados
