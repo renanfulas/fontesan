@@ -1,4 +1,19 @@
-# Bridge WhatsApp da Fontesan (Hermes/Baileys)
+# Bridge WhatsApp da Fontesan (Hermes/Baileys) — DESATIVADO em 2026-08-24
+
+**Status: arquivado, não rodar.** Múltiplas tentativas de pareamento (QR e
+código) falharam com rejeição rápida do lado do WhatsApp, sem erro no nosso
+código — sintoma consistente de bloqueio de IP de datacenter/VPS, uma medida
+antispam conhecida contra bridges não-oficiais como este. Decisão registrada
+em `branding/automacao-marketing-vendas.md` (Onda 0, item 1): o risco de
+banir o número público **5511947811422** (CTA principal do site, do
+fontesan.online e do Instagram) supera qualquer ganho de automação. Serviço
+systemd parado e desabilitado na VPS, `ENABLE_HERMES_CHAT=false` no backend,
+sessão (`auth_state`) apagada. Retomar só se a Fontesan decidir migrar para a
+API oficial Meta Cloud (fundação já existe no backend) ou contratar proxy
+residencial — nunca reativar este caminho não-oficial no mesmo número público
+sem essa mudança de infraestrutura.
+
+---
 
 Canal **não-oficial** (WhatsApp Web automatizado via Baileys) para conectar o
 número real da Fontesan, **(11) 94781-1422**, ao domínio `fontesan` do backend
