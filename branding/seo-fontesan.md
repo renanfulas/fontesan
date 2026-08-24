@@ -208,7 +208,7 @@ A auditoria produziu 59 itens, algo entre 60 e 75 horas do Renan e 40 a 60 da Gi
 | ~~Qua 26/08~~ | ~~Renan~~ | — | ~~Captura de atribuição (§3.6)~~ **Aplicado, deployado e testado em 24/08** com `?utm_source=teste&gclid=abc123` contra produção: `origem`, `gclid`, `consent_text`, `consent_at` gravados corretamente na linha. **Achado extra corrigido no mesmo passo:** o uvicorn não confiava nos headers do Nginx — `consent_ip` gravava `127.0.0.1` para todo lead, não só no teste. Corrigido com `--proxy-headers --forwarded-allow-ips=127.0.0.1` no systemd (`deploy/fontesan-backend.service.example`), verificado com IP real depois do fix. Agora sim: **liberado gastar o primeiro real de mídia** quanto a este bloqueante. |
 | Qui 27/08 | Renan | meio dia | GA4 + Consent Mode + os 5 links `wa.me` com texto distinto (§8). **Pendente** — GA4 exige criar propriedade com login próprio do Renan. |
 | Qui-Sex 27-28/08 | Giovanna | 4-6h | Revisar **só** o artigo da CVS-3, corrigindo os dois erros do §3.1 e numerando o artigo ao lado de cada afirmação. |
-| Sex 28/08 | Renan | 2h | Recomprimir os posters (§7.2). Começar por `cap2-vegetais`: 5 minutos, -123 KB em 100% das visitas. |
+| ~~Sex 28/08~~ | ~~Renan~~ | — | ~~Recomprimir os posters (§7.2)~~ **Aplicado e deployado em 24/08.** ffmpeg/libwebp em vez de cwebp (indisponível no ambiente). 1.026.060 → 363.684 bytes (**-65%**, acima da estimativa de -52%). `cap2-vegetais` sozinho: 208.749 → 81.524 bytes. Verificado 200/`image/webp` em produção. |
 | 29-31/08 | Renan | 1 dia | Publicar `site/cvs3/index.html`. |
 | a partir de 01/09 | ambos | 30 min/sem | 1 post no Perfil da Empresa + o painel (§8). |
 
