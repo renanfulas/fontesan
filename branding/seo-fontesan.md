@@ -397,7 +397,7 @@ Os 22 MB de MP4 rendem outros ~15 MB, mas só depois de 04/10 — e com nome de 
 
 **Search Console** como propriedade de **domínio** (registro TXT no DNS), não prefixo de URL. É a única forma de ver de uma vez qual variante o Google escolheu indexar. Prefixo exigiria quatro propriedades.
 
-**Os cinco links `wa.me` usam hoje exatamente o mesmo texto** (linhas 306, 413, 597, 637 e o gerado em JS na 920). Sem texto distinto por posição, nenhuma conversa é atribuível à origem — e o canal gratuito mais caro de conseguir, o perfil verificado, fica impossível de provar. Quem corrigir só o HTML entrega 4 de 5 e perde justamente o do lead que já converteu no formulário, o de maior valor.
+~~Os cinco links `wa.me` usam hoje exatamente o mesmo texto~~ **Corrigido e deployado em 24/08.** Eram na verdade 4 (o do rodapé virou link `tel:` no bloco 1) — nav, CTA do meio, `#contato` e o gerado em JS pós-formulário agora têm texto distinto por posição, verificado em produção. Falta só criar as etiquetas correspondentes no WhatsApp Business (isso é UI do app, não código — ação da Giovanna/Renan no celular).
 
 **Um painel semanal só, e ele já existe.** O anexo do plano de aquisição fixou quatro números — conversas recebidas, diagnósticos marcados, propostas enviadas, contratos fechados — e a auditoria de SEO propôs outros seis. Dois rituais semanais competindo é o jeito garantido de nenhum sobreviver. **O painel semanal continua sendo o de quatro números do anexo**, agora lido da coluna `status` da migration 021 em vez de contado à mão.
 
