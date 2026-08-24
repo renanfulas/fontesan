@@ -198,15 +198,15 @@ A auditoria produziu 59 itens, algo entre 60 e 75 horas do Renan e 40 a 60 da Gi
 
 | Quando | Quem | Tempo | O quê |
 |---|---|---|---|
-| Seg 24/08 | Giovanna | 15 min | Decidir **qual endereço** será verificado e qual conta Google (da empresa, com 2FA) é proprietária. Nada de Perfil da Empresa anda sem isso, e é o item de maior lead time de todo o documento. |
+| Seg 24/08 | Giovanna | 15 min | Decidir **qual endereço** será verificado e qual conta Google (da empresa, com 2FA) é proprietária. Nada de Perfil da Empresa anda sem isso, e é o item de maior lead time de todo o documento. **Pendente — depende da Giovanna.** |
 | ~~Seg 24/08~~ | ~~Renan~~ | — | ~~E-mail e cartão~~ **Já corrigido em 23/08** (§10.1). |
-| Seg 24/08 | Renan | 30 min | `<head>` da §6.1 no ar. Conserta o card do WhatsApp, que é o canal principal. |
-| Seg 24/08 | Renan | 30 min | `audit-headers.sh` (§7.1) + Search Console como propriedade de **domínio** + pedir indexação da home. |
-| Ter 25/08 | Giovanna | 2h | Reivindicar o Perfil da Empresa e disparar a verificação por vídeo. |
-| Ter 25/08 | ambos | 1h | Reescrever os dois FAQs (§3.2, §3.3) e apagar as estatísticas sem fonte (§3.4). |
-| Qua-Qui 26-27/08 | Renan | **1 dia** | `/privacidade/` + checkbox de consentimento + gravação de `consent_text` no backend + migration 021. |
-| Qua 26/08 | Renan | **1h** | **Captura de atribuição (§3.6).** Nenhum real de mídia antes do teste `?gclid=abc123` passar. |
-| Qui 27/08 | Renan | meio dia | GA4 + Consent Mode + os 5 links `wa.me` com texto distinto (§8). |
+| ~~Seg 24/08~~ | ~~Renan~~ | — | ~~`<head>` da §6.1~~ **Aplicado, deployado e verificado em produção em 24/08** (canonical, og absolutos, preview do WhatsApp testado). |
+| Seg 24/08 | Renan | 30 min | `audit-headers.sh` (§7.1) já criado — falta rodar contra produção. Search Console e pedido de indexação seguem pendentes (login próprio do Renan). |
+| Ter 25/08 | Giovanna | 2h | Reivindicar o Perfil da Empresa e disparar a verificação por vídeo. **Pendente — depende da Giovanna.** |
+| ~~Ter 25/08~~ | ~~ambos~~ | — | ~~Reescrever os dois FAQs (§3.2, §3.3) e apagar as estatísticas sem fonte (§3.4)~~ **Aplicado, deployado e verificado em 24/08.** |
+| ~~Qua-Qui 26-27/08~~ | ~~Renan~~ | — | ~~`/privacidade/` + checkbox de consentimento + gravação de `consent_text` no backend + migration 021~~ **Aplicado e deployado em 24/08.** Migration 021 rodou em produção, `/privacidade/` está no ar, checkbox bloqueia envio sem consentimento — tudo testado ponta a ponta contra o Postgres real. |
+| ~~Qua 26/08~~ | ~~Renan~~ | — | ~~Captura de atribuição (§3.6)~~ **Aplicado, deployado e testado em 24/08** com `?utm_source=teste&gclid=abc123` contra produção: `origem`, `gclid`, `consent_text`, `consent_at` gravados corretamente na linha. **Achado extra corrigido no mesmo passo:** o uvicorn não confiava nos headers do Nginx — `consent_ip` gravava `127.0.0.1` para todo lead, não só no teste. Corrigido com `--proxy-headers --forwarded-allow-ips=127.0.0.1` no systemd (`deploy/fontesan-backend.service.example`), verificado com IP real depois do fix. Agora sim: **liberado gastar o primeiro real de mídia** quanto a este bloqueante. |
+| Qui 27/08 | Renan | meio dia | GA4 + Consent Mode + os 5 links `wa.me` com texto distinto (§8). **Pendente** — GA4 exige criar propriedade com login próprio do Renan. |
 | Qui-Sex 27-28/08 | Giovanna | 4-6h | Revisar **só** o artigo da CVS-3, corrigindo os dois erros do §3.1 e numerando o artigo ao lado de cada afirmação. |
 | Sex 28/08 | Renan | 2h | Recomprimir os posters (§7.2). Começar por `cap2-vegetais`: 5 minutos, -123 KB em 100% das visitas. |
 | 29-31/08 | Renan | 1 dia | Publicar `site/cvs3/index.html`. |
