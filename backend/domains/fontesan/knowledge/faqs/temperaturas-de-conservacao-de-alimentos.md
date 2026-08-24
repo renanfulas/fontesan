@@ -15,14 +15,14 @@ Dúvida muito comum: "a que temperatura eu tenho que guardar/manter esse aliment
 - Área de manipulação de proteína animal crua: no máximo 16°C por até 2 horas por lote, ou temperatura ambiente por no máximo 30 minutos.
 - Pescado refrigerado (já processado): 2°C a 3°C, ou conforme recomendação do frigorífico produtor.
 - Preparações com pescados crus ou carnes cruas (pré-preparo): manter entre 0°C e 5°C, ou conforme recomendação do fabricante.
-- Sobremesas com recheio: hoje 5°C/validade de 5 dias; passa para 4°C/validade de 3 dias.
+- Sobremesas com recheio: hoje 5°C/validade de 5 dias; passa para 4°C/validade de 3 dias (art. 44).
 - Cocção: temperatura mínima interna sobe de 74°C para 75°C.
 - Amostras de alimento preparado guardadas para rastreabilidade: prazo sobe de 72 para 96 horas.
 
 ## Frequência de registro de temperatura
 
 - Hoje: siga o intervalo definido no POP do estabelecimento.
-- A partir da CVS-3/2026: no mínimo 2 vezes ao dia para equipamento; a cada 2 horas para alimento exposto à venda. Registro eletrônico passa a ser expressamente aceito, não precisa ser só planilha em papel.
+- A partir da CVS-3/2026: no mínimo 2 vezes ao dia para equipamento (art. 48). Para alimento exposto à venda, a temperatura deve ser aferida **no início da exposição e depois a cada 2 horas** até o fim da distribuição/venda (art. 73) — a primeira aferição, no início, também é obrigatória, não só a repetição a cada 2h. Registro eletrônico passa a ser expressamente aceito, não precisa ser só planilha em papel.
 
 ## Como orientar o cliente
 

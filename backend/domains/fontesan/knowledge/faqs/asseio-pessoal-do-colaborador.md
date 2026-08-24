@@ -8,9 +8,9 @@ Dúvida frequente de gestores sobre o que exigir da equipe no dia a dia.
 - Cabelo totalmente coberto por rede ou touca.
 - Unhas curtas, limpas, sem esmalte e sem unha postiça.
 - Sem uso de adornos durante a manipulação: anel, aliança, pulseira, relógio, brinco.
-- Barba e bigode aparados; a partir da Portaria CVS-3/2026 (vigor 04/10/2026), a exigência passa a ser barba e bigode completamente raspados.
-- Cílios postiços proibidos a partir da CVS-3/2026.
-- Máscara: hoje pode ser exigida ou proibida conforme o protocolo do estabelecimento; a partir da CVS-3/2026, o uso deixa de ser proibido durante o preparo, desde que documentado em procedimento escrito.
+- Barba e bigode aparados; a partir da Portaria CVS-3/2026 (art. 12, vigor 04/10/2026), a exigência passa a ser barba e bigode totalmente raspados.
+- Cílios e unhas postiças vedados a partir da CVS-3/2026 (art. 12) — também maquiagem e adornos (colar, amuleto, pulseira, brinco, piercing, relógio, anel, aliança).
+- Máscara: hoje pode ser exigida ou proibida conforme o protocolo do estabelecimento; a partir da CVS-3/2026 (art. 15, §3º), o uso **não é obrigatório** durante a manipulação e o preparo — quando usada, deve ser descartável, com critérios de uso e frequência de troca documentados em procedimento escrito.
 
 ## Lavagem das mãos
 

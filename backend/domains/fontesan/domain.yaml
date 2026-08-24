@@ -28,6 +28,19 @@ default_language: pt-BR
 # garantia; qualquer numero novo entra so apos grep direto no PDF em
 # backend/domains/fontesan/sources/.
 #
+# 2026-08-24: terceira rodada de auditoria, mais 2 problemas achados e ja
+# corrigidos: (3) o mesmo erro de mascara do item 22-24 (art. 21 -> 15, §3o)
+# tambem estava em knowledge/faqs/asseio-pessoal-do-colaborador.md, que a
+# correcao anterior nao tocou -- mesmo erro, arquivo diferente, prova que
+# corrigir 1 ocorrencia nao basta, tem que dar grep pelo repo inteiro;
+# (4) a frequencia de afericao do alimento exposto a venda dizia so "a cada 2
+# horas" (articles/portaria-cvs-3-2026-nova-norma-sp-outubro.md e
+# faqs/temperaturas-de-conservacao-de-alimentos.md), mas o art. 73 exige
+# tambem uma afericao NO INICIO da exposicao, nao so a repeticao a cada 2h --
+# quem seguisse literalmente a base pularia a primeira medicao. Adicionadas
+# tambem citacoes de artigo que faltavam (art. 12 asseio pessoal, art. 44
+# tabela de sobremesas, art. 48/55/73) para facilitar auditoria futura.
+#
 # AINDA PENDENTE de revisao da responsavel tecnica (Giovanna, CRN-3 67286):
 # (a) o artigo metodo-fontesan-auditoria-vigilancia-sanitaria.md, que descreve o
 #     processo de trabalho da propria empresa e foi inferido, nao ditado por ela;

@@ -67,7 +67,7 @@ cases:
 
   - id: asseio-pessoal-manipulador
     category: higiene_pessoal
-    question: O que eu tenho que exigir dos meus funcionários em termos de higiene pessoal na cozinha?
+    question: Quais são as regras de asseio pessoal para o manipulador de alimentos, tipo uniforme, unha e adorno?
     expectation:
       should_escalate: true
       required_terms:

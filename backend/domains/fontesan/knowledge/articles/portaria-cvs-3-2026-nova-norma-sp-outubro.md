@@ -28,8 +28,8 @@ Assunto de alta prioridade para clientes agora (segunda metade de 2026): a norma
 - Temperatura mínima de cocção sobe de 74°C para 75°C.
 - Pescado refrigerado (já processado): 2°C a 3°C, ou conforme recomendação do frigorífico produtor.
 - Preparações com pescados crus ou carnes cruas (pré-preparo): 0°C a 5°C, ou conforme recomendação do fabricante.
-- Sobremesas com recheio: cai de 5°C/5 dias para 4°C/3 dias de validade.
-- Monitoramento de temperatura de equipamento: no mínimo 2 vezes ao dia. Alimento exposto à venda: a cada 2 horas.
+- Sobremesas com recheio: cai de 5°C/5 dias para 4°C/3 dias de validade (art. 44).
+- Monitoramento de temperatura de equipamento: no mínimo 2 vezes ao dia (art. 48). Alimento exposto à venda: no início da exposição e a cada 2 horas até o fim da distribuição/venda (art. 73) — não é só "a cada 2 horas", a primeira aferição no início também é obrigatória.
 - Registro eletrônico passa a ser expressamente admitido (não precisa ser só planilha em papel).
 
 **Ovos e alimentos crus**
