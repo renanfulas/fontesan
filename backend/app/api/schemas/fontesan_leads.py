@@ -2,6 +2,16 @@ from typing import Literal
 
 from pydantic import BaseModel, Field, field_validator
 
+# Texto de consentimento gravado em fontesan_leads.consent_text quando
+# consent_given=True (migration 021). O checkbox em site/index.html mostra
+# este mesmo texto ao usuário -- qualquer mudança aqui precisa ser replicada
+# lá, e vice-versa, senão o registro deixa de refletir o que foi consentido.
+FONTESAN_LEAD_CONSENT_TEXT_V1 = (
+    "Autorizo a Fontesan a usar meu nome, telefone e mensagem para me "
+    "responder sobre o diagnóstico solicitado, conforme a Política de "
+    "Privacidade (fontesan.com.br/privacidade/)."
+)
+
 FontesanBusinessType = Literal[
     "Padaria",
     "Restaurante ou cozinha",
@@ -30,6 +40,56 @@ class FontesanLeadRequest(BaseModel):
     # Honeypot field mirrored from the site's form. Real visitors never fill
     # it; a non-empty value means a bot submitted the form.
     site: str | None = Field(default=None, max_length=200)
+
+    # Atribuicao (Onda 0, migration 021). Todos opcionais: o site ainda nao
+    # atualizado continua funcionando sem eles. consent_ip/consent_at nao
+    # entram aqui -- sao derivados no backend (IP da requisicao, timestamp do
+    # servidor), nunca aceitos do cliente.
+    consent_given: bool = False
+    origem: str | None = Field(default=None, max_length=120)
+    origem_url: str | None = Field(default=None, max_length=500)
+    utm_source: str | None = Field(default=None, max_length=120)
+    utm_medium: str | None = Field(default=None, max_length=120)
+    utm_campaign: str | None = Field(default=None, max_length=120)
+    utm_term: str | None = Field(default=None, max_length=120)
+    utm_content: str | None = Field(default=None, max_length=120)
+    gclid: str | None = Field(default=None, max_length=200)
+    gbraid: str | None = Field(default=None, max_length=200)
+    wbraid: str | None = Field(default=None, max_length=200)
+    fbclid: str | None = Field(default=None, max_length=200)
+    fbp: str | None = Field(default=None, max_length=200)
+    fbc: str | None = Field(default=None, max_length=200)
+    landing_path: str | None = Field(default=None, max_length=300)
+    referrer: str | None = Field(default=None, max_length=500)
+    partner_slug: str | None = Field(default=None, max_length=120)
+
+    @field_validator(
+        "origem",
+        "origem_url",
+        "utm_source",
+        "utm_medium",
+        "utm_campaign",
+        "utm_term",
+        "utm_content",
+        "gclid",
+        "gbraid",
+        "wbraid",
+        "fbclid",
+        "fbp",
+        "fbc",
+        "landing_path",
+        "referrer",
+        "partner_slug",
+        mode="before",
+    )
+    @classmethod
+    def normalize_attribution_text(cls, value: str | None) -> str | None:
+        if value is None:
+            return None
+        if not isinstance(value, str):
+            return value
+        normalized = value.strip()
+        return normalized or None
 
     @field_validator("nome", "telefone", mode="before")
     @classmethod

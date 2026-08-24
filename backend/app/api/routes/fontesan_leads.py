@@ -29,8 +29,11 @@ def create_fontesan_lead(
             storage="rejected_honeypot",
         )
 
+    client_ip = request.client.host if request.client else None
     try:
-        response = FontesanLeadService(request.app.state.database_runtime).record(payload)
+        response = FontesanLeadService(request.app.state.database_runtime).record(
+            payload, client_ip=client_ip
+        )
     except DatabaseUnavailableError as exc:
         raise HTTPException(status_code=503, detail="fontesan_lead_storage_unavailable") from exc
 

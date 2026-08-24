@@ -194,3 +194,43 @@ def test_list_leads_returns_empty_list_without_persistence(client: TestClient) -
 
     assert response.status_code == 200
     assert response.json() == {"leads": []}
+
+
+def test_create_lead_accepts_attribution_and_consent_fields(client: TestClient) -> None:
+    response = client.post(
+        "/web/fontesan/leads",
+        json={
+            "nome": "Ana Souza",
+            "tipo_negocio": "Padaria",
+            "telefone": "11999999999",
+            "consent_given": True,
+            "origem": "google_ads",
+            "origem_url": "https://fontesan.com.br/cvs3?utm_source=teste&gclid=abc123",
+            "utm_source": "teste",
+            "utm_medium": "cpc",
+            "utm_campaign": "cvs3",
+            "gclid": "abc123",
+            "landing_path": "/cvs3",
+            "referrer": "https://google.com/",
+        },
+    )
+
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["accepted"] is True
+    # Sem banco real neste teste, a rota so confirma que o schema aceita os
+    # 17 campos de atribuicao sem 422 -- a gravacao de fato e coberta pela
+    # verificacao manual contra Postgres descrita em seo-fontesan.md #3.6.
+
+
+def test_create_lead_defaults_consent_given_to_false(client: TestClient) -> None:
+    response = client.post(
+        "/web/fontesan/leads",
+        json={
+            "nome": "Ana",
+            "tipo_negocio": "Padaria",
+            "telefone": "11999999999",
+        },
+    )
+
+    assert response.status_code == 200

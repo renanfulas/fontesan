@@ -11,7 +11,9 @@ class FontesanLeadService:
     def __init__(self, runtime: DatabaseRuntime | None = None) -> None:
         self.runtime = runtime
 
-    def record(self, lead: FontesanLeadRequest) -> FontesanLeadResponse:
+    def record(
+        self, lead: FontesanLeadRequest, client_ip: str | None = None
+    ) -> FontesanLeadResponse:
         if self.runtime is None:
             from uuid import uuid4
 
@@ -21,7 +23,9 @@ class FontesanLeadService:
                 status="accepted",
                 storage="pending_persistence",
             )
-        return OperationalRepository(self.runtime).record_fontesan_lead(lead)
+        return OperationalRepository(self.runtime).record_fontesan_lead(
+            lead, client_ip=client_ip
+        )
 
     def list_leads(self, limit: int = 200) -> FontesanLeadListResponse:
         if self.runtime is None:

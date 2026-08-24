@@ -16,6 +16,7 @@ from app.api.schemas.feedback import (
     safe_feedback_source,
 )
 from app.api.schemas.fontesan_leads import (
+    FONTESAN_LEAD_CONSENT_TEXT_V1,
     FontesanLeadListResponse,
     FontesanLeadRecord,
     FontesanLeadRequest,
@@ -904,7 +905,9 @@ class OperationalRepository:
             storage="postgres",
         )
 
-    def record_fontesan_lead(self, lead: FontesanLeadRequest) -> FontesanLeadResponse:
+    def record_fontesan_lead(
+        self, lead: FontesanLeadRequest, client_ip: str | None = None
+    ) -> FontesanLeadResponse:
         if not self.runtime.persistence_enabled:
             return FontesanLeadResponse(
                 lead_id=str(uuid4()),
@@ -921,15 +924,33 @@ class OperationalRepository:
         mensagem = sanitize_for_persistence(lead.mensagem)
         redaction_version = REDACTION_VERSION if mensagem is not None else None
 
+        # consent_text/consent_ip only get a value when consent was actually
+        # given -- they exist to prove what the user agreed to and when, so a
+        # row with consent_given=False must not carry a fabricated consent
+        # record. consent_at is set by the database (now()) rather than
+        # Python's clock, gated on the same boolean via CASE WHEN below.
+        consent_text = FONTESAN_LEAD_CONSENT_TEXT_V1 if lead.consent_given else None
+        consent_ip = client_ip if lead.consent_given else None
+
         try:
             with self.runtime.transaction() as connection:
                 with connection.cursor() as cursor:
                     cursor.execute(
                         """
                         INSERT INTO fontesan_leads (
-                          nome, tipo_negocio, telefone, mensagem, redaction_version
+                          nome, tipo_negocio, telefone, mensagem, redaction_version,
+                          consent_text, consent_at, consent_ip,
+                          origem, origem_url, utm_source, utm_medium, utm_campaign,
+                          utm_term, utm_content, gclid, gbraid, wbraid, fbclid,
+                          fbp, fbc, landing_path, referrer, partner_slug
                         )
-                        VALUES (%s, %s, %s, %s, %s)
+                        VALUES (
+                          %s, %s, %s, %s, %s,
+                          %s, CASE WHEN %s THEN now() ELSE NULL END, %s,
+                          %s, %s, %s, %s, %s,
+                          %s, %s, %s, %s, %s, %s,
+                          %s, %s, %s, %s, %s
+                        )
                         RETURNING id
                         """,
                         (
@@ -938,6 +959,25 @@ class OperationalRepository:
                             lead.telefone,
                             mensagem,
                             redaction_version,
+                            consent_text,
+                            lead.consent_given,
+                            consent_ip,
+                            lead.origem,
+                            lead.origem_url,
+                            lead.utm_source,
+                            lead.utm_medium,
+                            lead.utm_campaign,
+                            lead.utm_term,
+                            lead.utm_content,
+                            lead.gclid,
+                            lead.gbraid,
+                            lead.wbraid,
+                            lead.fbclid,
+                            lead.fbp,
+                            lead.fbc,
+                            lead.landing_path,
+                            lead.referrer,
+                            lead.partner_slug,
                         ),
                     )
                     row = cursor.fetchone()

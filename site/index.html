@@ -6,16 +6,50 @@
 <title>Fontesan · Segurança de alimentos e vigilância sanitária na Grande São Paulo</title>
 <meta name="description" content="Consultoria em segurança de alimentos e vigilância sanitária para padarias, restaurantes e mercados na Grande São Paulo. Diagnóstico, adequação, treinamento e documentação, com responsável técnica registrada.">
 <meta name="theme-color" content="#16281c">
-<!-- DEPLOY STEP: trocar og:url e og:image por URLs absolutas do site publicado -->
+<link rel="canonical" href="https://fontesan.com.br/">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<meta name="author" content="Giovanna Fontes Rios — Nutricionista — CRN-3 67286">
+
+<meta property="og:site_name" content="Fontesan">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://fontesan.com.br/">
 <meta property="og:title" content="Fontesan · Segurança de alimentos">
 <meta property="og:description" content="Você escolhe com os olhos. A segurança de um alimento, ninguém vê. Consultoria em vigilância sanitária para padarias, restaurantes e mercados na Grande São Paulo.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="assets/">
-<meta property="og:image" content="assets/cap1-limoes-poster.jpg">
+<meta property="og:image" content="https://fontesan.com.br/assets/cap1-limoes-poster.jpg">
+<meta property="og:image:width" content="1728">
+<meta property="og:image:height" content="972">
+<meta property="og:image:alt" content="Limões sendo escolhidos à mão — Fontesan, segurança de alimentos">
+
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="preload" as="image" href="/assets/cap1-limoes-poster.jpg" fetchpriority="high">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='44' fill='%2316281c'/%3E%3Ccircle cx='50' cy='50' r='38' fill='none' stroke='%23d9821b' stroke-width='3'/%3E%3Cpath d='M35 52 L46 62 L66 40' fill='none' stroke='%23f2ecdd' stroke-width='7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Public+Sans:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Public+Sans:wght@400;600&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet">
+<script>
+/* Atribuição de primeiro toque (seo-fontesan.md #3.6). Roda antes de
+   qualquer submit; sessionStorage preserva a origem através de navegação
+   interna. Sem isso a mídia paga entra sem nenhum rastro de origem. */
+(function(){
+  try{
+    var K='fontesan_attr';
+    if(sessionStorage.getItem(K))return;
+    var q=new URLSearchParams(location.search),c=document.cookie,a={};
+    ['utm_source','utm_medium','utm_campaign','utm_term','utm_content',
+     'gclid','gbraid','wbraid','fbclid','origem','partner_slug'
+    ].forEach(function(k){if(q.get(k))a[k]=q.get(k).slice(0,200)});
+    function cookie(n){var m=c.match('(^|; )'+n+'=([^;]*)');return m?decodeURIComponent(m[2]):null}
+    a.fbp=cookie('_fbp');a.fbc=cookie('_fbc');
+    a.landing_path=location.pathname.slice(0,300);
+    a.referrer=document.referrer.slice(0,500)||null;
+    a.origem_url=location.href.slice(0,500);
+    if(!a.origem)a.origem=a.gclid?'google_ads':a.fbclid?'meta_ads':a.utm_source?a.utm_source:(a.referrer?'referral':'direto');
+    sessionStorage.setItem(K,JSON.stringify(a));
+  }catch(err){}
+})();
+</script>
 <style>
 /* ===== Tokens ===== */
 :root{
@@ -239,6 +273,10 @@ form{background:var(--panel);border:1px solid rgba(31,56,38,.14);border-radius:2
 .field label{display:block;font-weight:600;font-size:.92rem;margin-bottom:.35rem}
 .field input,.field select,.field textarea{width:100%;border:1.5px solid rgba(31,56,38,.32);border-radius:10px;padding:.7rem .9rem;font:inherit;background:#fff;color:var(--ink)}
 .field input:focus,.field select:focus,.field textarea:focus{outline:3px solid var(--accent);outline-offset:1px;border-color:var(--accent)}
+.field-check{display:flex;gap:.6rem;align-items:flex-start;margin-bottom:1.1rem;font-size:.86rem;color:var(--text-secondary)}
+.field-check input{width:auto;margin-top:.25rem;accent-color:var(--accent)}
+.field-check[aria-invalid="true"]{color:#a33}
+.field-check a{color:var(--accent-ink)}
 .field [aria-invalid="true"]{border-color:#a3271b;background:#fdf3f1}
 .ferro,.ffalha{display:none;color:#8f2016;font-weight:600;font-size:.92rem;margin:0 0 1rem}
 form.com-erro .ferro{display:block}
@@ -516,12 +554,8 @@ html.static-mode .cue svg{animation:none}
       <h2>Isso acontece todos os dias, e quase nunca vira notícia.</h2>
     </div>
     <div class="stats">
-      <div class="stat part"><span class="num"><span>~</span><span data-count="650">0</span></span><p>surtos de doenças transmitidas por alimentos notificados por ano no Brasil.</p></div>
-      <div class="stat part"><span class="num"><span data-count="16">0</span><span>%</span></span><p>dos surtos nascem em restaurantes, padarias e similares.</p></div>
-      <div class="stat part"><span class="num"><span data-count="10">0</span><span>%</span></span><p>das punições chegam à interdição total. Antes dela vêm advertência (31%) e multa (20%).</p></div>
-      <div class="stat part"><span class="num"><span>?</span></span><p>E a maior parte dos casos nunca vira estatística.</p></div>
+      <div class="stat part"><span class="num"><span>?</span></span><p>A maior parte dos casos nunca vira estatística.</p></div>
     </div>
-    <p class="fonte mono part">Fontes: SINAN / Ministério da Saúde · estudo de autuações em capital do Nordeste</p>
   </div>
 </section>
 
@@ -579,9 +613,9 @@ html.static-mode .cue svg{animation:none}
     <div class="part">
       <details><summary>Vocês atendem a minha região?</summary><p>A Fontesan atende toda a Grande São Paulo presencialmente. Se o seu negócio fica um pouco além, chame no WhatsApp e a gente vê o que dá para fazer.</p></details>
       <details><summary>Meu negócio é pequeno. Isso é para mim?</summary><p>A RDC 216 vale para qualquer serviço de alimentação, do food truck à rede. A fiscalização também. O tamanho muda o plano, nunca a obrigação.</p></details>
-      <details><summary>Recebi uma notificação com prazo. Dá tempo?</summary><p>Quase sempre, sim. O protocolo prevê prazo de adequação antes da segunda visita. Quanto antes começar, mais calmo e mais barato fica.</p></details>
+      <details><summary>Recebi uma notificação da vigilância sanitária com prazo. O que faço agora?</summary><p>Comece lendo o documento e separando três informações: quais itens foram apontados, qual o prazo de cada um e se há data marcada de reinspeção. Guarde o original e fotografe cada página. Prazo e regra de prorrogação variam conforme o município da Grande São Paulo e conforme o que foi apontado, então não existe resposta única: quem avalia caso a caso é a responsável técnica, com o documento à vista. O que a Fontesan faz nesse momento é ler a notificação com você, separar o que é ajuste imediato do que exige obra ou compra, e organizar a evidência documental de cada item corrigido. Não emitimos parecer sobre auto de infração sem ver o documento e não prometemos resultado de processo administrativo.</p></details>
       <details><summary>Minha cozinha é limpa. Preciso mesmo de documentos?</summary><p>Precisa. Para a vigilância, cuidado sem registro é cuidado que não aconteceu. Manual de Boas Práticas e POPs são exigência legal.</p></details>
-      <details><summary>Quanto custa?</summary><p>Depende do tamanho e do estado do seu negócio, e por isso o primeiro passo é o diagnóstico. O que dá para garantir: custa menos que uma multa, e muito menos que uma interdição.</p></details>
+      <details><summary>Quanto custa uma consultoria de vigilância sanitária?</summary><p>O valor depende do porte do estabelecimento, do número de manipuladores e do que o diagnóstico encontrar. Não existe tabela pronta porque uma padaria de bairro e uma cozinha industrial não têm o mesmo escopo de documentação nem o mesmo tempo de visita. Na visita de diagnóstico a responsável técnica levanta ponto a ponto o que precisa ser feito e devolve uma proposta por escrito, com escopo, prazo e valores. Por conduta profissional, valores são tratados diretamente com você e não divulgados em canal público.</p></details>
       <details><summary>Vou precisar fechar durante a adequação?</summary><p>Não. O plano é desenhado para rodar com a casa funcionando.</p></details>
     </div>
   </div>
@@ -595,8 +629,8 @@ html.static-mode .cue svg{animation:none}
       <h2>A visita do fiscal não tem hora marcada. A sua tranquilidade pode ter.</h2>
       <p class="lead">Conte como é o seu negócio e a gente devolve um caminho claro, sem juridiquês. Atendimento presencial em toda a Grande São Paulo.</p>
         <a class="btn" href="https://wa.me/5511947811422?text=Ol%C3%A1%21%20Vim%20pelo%20site%20da%20Fontesan%20e%20quero%20um%20diagn%C3%B3stico%20para%20o%20meu%20neg%C3%B3cio." target="_blank" rel="noopener">Chamar no WhatsApp</a>
+        <p class="micro">Prefere ligar? <a href="tel:+5511947811422">(11) 94781-1422</a></p>
     </div>
-    <!-- TODO DEPLOY: apontar action para o endpoint do Formspree (ou planilha) e remover o modo demonstração no JS -->
     <form id="leadform" class="part" novalidate>
       <div class="campos">
         <div class="field"><label for="f-nome">Seu nome</label><input id="f-nome" name="nome" type="text" autocomplete="name" required></div>
@@ -612,6 +646,7 @@ html.static-mode .cue svg{animation:none}
         <div class="field"><label for="f-fone">WhatsApp ou telefone</label><input id="f-fone" name="fone" type="tel" autocomplete="tel" required></div>
         <div class="field"><label for="f-msg">Mensagem (opcional)</label><textarea id="f-msg" name="mensagem" rows="3"></textarea></div>
         <input class="hp" type="text" name="site" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <div class="field-check" id="f-consent-wrap"><input type="checkbox" id="f-consent"><label for="f-consent">Autorizo a Fontesan a usar meu nome, telefone e mensagem para me responder sobre o diagnóstico solicitado, conforme a <a href="/privacidade/" target="_blank" rel="noopener">Política de Privacidade</a>.</label></div>
         <p class="ferro" id="f-erro" role="alert">Preencha os campos destacados para enviar.</p>
         <p class="ffalha" id="f-falha" role="alert" tabindex="-1"></p>
         <button class="btn" type="submit">Quero um diagnóstico</button>
@@ -634,10 +669,11 @@ html.static-mode .cue svg{animation:none}
     <div class="fbrand"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#selo"/></svg>Fontesan</div>
     <p>Segurança de alimentos e vigilância sanitária<br>para padarias, restaurantes e mercados.<br>
     Grande São Paulo.</p>
-    <p><a href="https://wa.me/5511947811422?text=Ol%C3%A1%21%20Vim%20pelo%20site%20da%20Fontesan%20e%20quero%20um%20diagn%C3%B3stico%20para%20o%20meu%20neg%C3%B3cio." target="_blank" rel="noopener">(11) 94781-1422</a><br>
-    <a href="mailto:atendimento@fontesan.com">atendimento@fontesan.com</a></p>
+    <p><a href="tel:+5511947811422">(11) 94781-1422</a><br>
+    <a href="mailto:atendimento@fontesan.com.br">atendimento@fontesan.com.br</a></p>
     <p>Responsável técnica<br>Giovanna Fontes Rios · CRN-3 67286<br>
-    Imagens ilustrativas. © <span id="ano">2026</span> Fontesan.</p>
+    Imagens ilustrativas. © <span id="ano">2026</span> Fontesan.<br>
+    <a href="/privacidade/">Política de Privacidade</a></p>
   </div>
 </footer>
 
@@ -893,7 +929,7 @@ hb.addEventListener('click',function(e){if(!hDone&&(e.detail===0||rmq.matches))s
 
 /* ===== FAQ acessível já é nativo (details) ===== */
 
-/* ===== Formulário (modo demonstração até ligar o Formspree no deploy) ===== */
+/* ===== Formulário ===== */
 var form=document.getElementById('leadform');
 var submitBtn=form.querySelector('button[type="submit"]');
 var submitBtnLabel=submitBtn.textContent;
@@ -902,12 +938,16 @@ var LEADS_ENDPOINT='/web/fontesan/leads';   /* same-origin: o Nginx da Fontesan 
 form.addEventListener('submit',function(e){
   e.preventDefault();
   var honeypot=form.querySelector('.hp').value;
+  var consentEl=document.getElementById('f-consent');
+  var consentWrap=document.getElementById('f-consent-wrap');
   var primeiro=null;
   ['f-nome','f-tipo','f-fone'].forEach(function(id){
     var el=document.getElementById(id);
     if(!el.value){el.setAttribute('aria-invalid','true');if(!primeiro)primeiro=el}
     else el.removeAttribute('aria-invalid');
   });
+  if(!consentEl.checked){consentWrap.setAttribute('aria-invalid','true');if(!primeiro)primeiro=consentEl}
+  else consentWrap.removeAttribute('aria-invalid');
   if(primeiro){form.classList.add('com-erro');form.classList.remove('com-falha');primeiro.focus();return}
   form.classList.remove('com-erro');
   form.classList.remove('com-falha');
@@ -922,10 +962,15 @@ form.addEventListener('submit',function(e){
   if(honeypot){form.classList.add('sent');requestAnimationFrame(function(){form.querySelector('.sucesso').focus()});return}
 
   submitBtn.disabled=true;submitBtn.textContent='Enviando...';
+  var attr={};
+  try{attr=JSON.parse(sessionStorage.getItem('fontesan_attr')||'{}')}catch(err){}
   fetch(LEADS_ENDPOINT,{
     method:'POST',
     headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({nome:nome,tipo_negocio:tipo,telefone:fone,mensagem:extra||null,site:honeypot||null})
+    body:JSON.stringify(Object.assign(
+      {nome:nome,tipo_negocio:tipo,telefone:fone,mensagem:extra||null,site:honeypot||null,consent_given:consentEl.checked},
+      attr
+    ))
   }).then(function(res){
     if(res.status===429){throw new Error('rate_limited')}
     if(!res.ok){throw new Error('http_'+res.status)}

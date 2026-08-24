@@ -114,7 +114,7 @@ Botão principal: **Chamar no WhatsApp** (wa.me/5511947811422, com mensagem pré
 Formulário: Nome · Tipo de negócio (Padaria / Restaurante ou cozinha / Mercado ou hortifrúti / Outro) · WhatsApp ou telefone · Mensagem (opcional). Botão: **Quero um diagnóstico**. Microcopy: *Retornamos em até um dia útil.* Sucesso: *Recebido. A Fontesan fala com você em até um dia útil.*
 Tratamento: serviço de formulário (Formspree ou planilha) ligado no deploy; até lá, estado de sucesso JS com aviso claro no chat, nunca no site.
 
-**Rodapé:** selo + Fontesan · Segurança de alimentos e vigilância sanitária para padarias, restaurantes e mercados · Grande São Paulo · (11) 94781-1422 · atendimento@fontesan.com · Responsável técnica Giovanna Fontes Rios · CRN-3 67286 · *Imagens ilustrativas.* · ano.
+**Rodapé:** selo + Fontesan · Segurança de alimentos e vigilância sanitária para padarias, restaurantes e mercados · Grande São Paulo · (11) 94781-1422 · atendimento@fontesan.com.br · Responsável técnica Giovanna Fontes Rios · CRN-3 67286 · *Imagens ilustrativas.* · ano.
 
 ## 7. O elemento assinatura e a camada vetorial
 
