@@ -1,0 +1,33 @@
+# Referência do systemd unit em produção: /etc/systemd/system/fontesan-backend.service
+# Backup do original (sem --proxy-headers) em
+# /etc/systemd/system/fontesan-backend.service.bak-preproxyheaders na VPS.
+#
+# --proxy-headers --forwarded-allow-ips=127.0.0.1 (adicionado em 2026-08-24):
+# sem isso, request.client.host no FastAPI sempre reporta 127.0.0.1 (a conexão
+# vinda do Nginx), nunca o IP real do visitante -- mesmo com o Nginx já
+# mandando X-Real-IP/X-Forwarded-For (ver deploy/nginx-fontesan.conf.example).
+# Isso quebrava silenciosamente fontesan_leads.consent_ip (migration 021):
+# toda linha nascia com 127.0.0.1, o que anula o valor probatorio do campo
+# (a prova de QUEM consentiu). --forwarded-allow-ips=127.0.0.1 restringe a
+# confianca nesses headers a conexoes vindas do proprio Nginx local -- nunca
+# usar 0.0.0.0/* ou uma lista mais ampla aqui, isso permitiria qualquer
+# cliente externo forjar X-Forwarded-For diretamente.
+
+[Unit]
+Description=Fontesan backend (supportfaqagent) - uvicorn
+After=network.target postgresql.service
+Requires=postgresql.service
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/var/www/fontesan/backend
+EnvironmentFile=/var/www/fontesan/backend/.env
+ExecStart=/var/www/fontesan/backend/.venv/bin/uvicorn app.main:app --host 127.0.0.1 --port 8000 --proxy-headers --forwarded-allow-ips=127.0.0.1
+Restart=on-failure
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
