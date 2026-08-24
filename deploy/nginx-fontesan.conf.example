@@ -1,6 +1,25 @@
 # Referência de configuração Nginx para a VPS (HostGator).
-# NÃO aplicado automaticamente: eu não tenho acesso à VPS. Copie o conteúdo
-# para o servidor, ajuste o que está marcado como TROCAR e recarregue o Nginx.
+# NÃO é a config viva: o certbot reescreveu o arquivo real em produção ao
+# emitir o certificado (blocos 443 automáticos), e o arquivo vivo pode ter
+# divergido deste desde então. Antes de editar Nginx, rodar
+# deploy/audit-headers.sh contra produção e comparar com o resultado abaixo.
+#
+# RESULTADO de deploy/audit-headers.sh em 2026-08-24 (rodado da própria VPS):
+#   - http:// -> https:// : funciona (301).
+#   - gzip na home: JÁ LIGADO (Content-Encoding: gzip presente). Não editar
+#     Nginx por causa disso — já está certo.
+#   - www NÃO colapsa para o apex: https://fontesan.com.br/ E
+#     https://www.fontesan.com.br/ respondem 200 separadamente (o redirect
+#     http->https usa $host, que preserva o www). Mitigado por
+#     <link rel="canonical" href="https://fontesan.com.br/"> em site/index.html
+#     (seo-fontesan.md #6.1). O fix definitivo (collapse de www no bloco 443)
+#     fica para depois de 04/10 por decisão do plano de SEO — não vale abrir
+#     essa frente de Nginx numa janela de 6 semanas para 1,5 pessoa.
+#   - robots.txt / sitemap.xml: 404 (esperado — nascem no commit da 2ª página).
+#   - cap1-limoes-poster.jpg: Cache-Control public, max-age=2592000, immutable
+#     já ativo. Ao trocar para WebP (seo-fontesan.md #7.2), usar nome de
+#     arquivo novo, nunca sobrescrever — visitante recorrente ficaria preso
+#     no arquivo velho por até 30 dias.
 #
 # O que este arquivo faz:
 #   - serve o site estático da Fontesan (pasta site/ deste projeto) na raiz
