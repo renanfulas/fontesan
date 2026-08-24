@@ -13,7 +13,8 @@ Dúvida muito comum: "a que temperatura eu tenho que guardar/manter esse aliment
 ## O que muda em São Paulo a partir de 04/10/2026 (Portaria CVS-3/2026)
 
 - Área de manipulação de proteína animal crua: no máximo 16°C por até 2 horas por lote, ou temperatura ambiente por no máximo 30 minutos.
-- Pescado e carnes cruas: manter entre 0°C e 5°C.
+- Pescado refrigerado (já processado): 2°C a 3°C, ou conforme recomendação do frigorífico produtor.
+- Preparações com pescados crus ou carnes cruas (pré-preparo): manter entre 0°C e 5°C, ou conforme recomendação do fabricante.
 - Sobremesas com recheio: hoje 5°C/validade de 5 dias; passa para 4°C/validade de 3 dias.
 - Cocção: temperatura mínima interna sobe de 74°C para 75°C.
 - Amostras de alimento preparado guardadas para rastreabilidade: prazo sobe de 72 para 96 horas.

@@ -21,12 +21,13 @@ Assunto de alta prioridade para clientes agora (segunda metade de 2026): a norma
 - Coprocultura e parasitológico passam a ser exames anuais obrigatórios para todos os manipuladores, inclusive quem só lida com alimento já embalado.
 - Curso de boas práticas com carga horária mínima de 8 horas passa a ser obrigatório para todos os manipuladores, com comprovação nominal (programa próprio ou terceirizado de educação permanente).
 - Tempo de higienização das mãos passa de 3 minutos para 40 segundos (ou conforme especificação do fabricante do produto usado).
-- Uso de máscara **não é obrigatório** durante a manipulação e o preparo. Quando usada, deve ser descartável, e os critérios de uso e a frequência de troca precisam estar documentados em procedimento escrito (art. 21, §3º).
+- Uso de máscara **não é obrigatório** durante a manipulação e o preparo. Quando usada, deve ser descartável, e os critérios de uso e a frequência de troca precisam estar documentados em procedimento escrito (art. 15, §3º).
 - Barba e bigode completamente raspados; proibição de cílios e unhas postiças; uso obrigatório de rede ou touca.
 
 **Temperatura e monitoramento**
 - Temperatura mínima de cocção sobe de 74°C para 75°C.
-- Pescado e carnes cruas: 0°C a 5°C.
+- Pescado refrigerado (já processado): 2°C a 3°C, ou conforme recomendação do frigorífico produtor.
+- Preparações com pescados crus ou carnes cruas (pré-preparo): 0°C a 5°C, ou conforme recomendação do fabricante.
 - Sobremesas com recheio: cai de 5°C/5 dias para 4°C/3 dias de validade.
 - Monitoramento de temperatura de equipamento: no mínimo 2 vezes ao dia. Alimento exposto à venda: a cada 2 horas.
 - Registro eletrônico passa a ser expressamente admitido (não precisa ser só planilha em papel).

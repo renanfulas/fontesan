@@ -19,6 +19,15 @@ default_language: pt-BR
 # CVS-5/2013 (arts. 3 e 4). Este dominio ja roda com RETRIEVAL_BACKEND=pgvector
 # em producao.
 #
+# 2026-08-23: a conferencia de 08-22 (acima) deixou passar 2 erros, achados
+# numa segunda rodada -- ver memoria do agente [[reference-cvs3-2026-fonte-
+# oficial]]. Corrigidos: (1) mascara era "art. 21, §3o", o correto e art. 15,
+# §3o; (2) "pescado e carnes cruas: 0-5C" fundia duas linhas da tabela do PDF
+# -- pescado JA REFRIGERADO/processado e 2-3C, so a PREPARACAO com pescado ou
+# carne crua (pre-preparo) e 0-5C. Licao: "conferido item a item" nao e
+# garantia; qualquer numero novo entra so apos grep direto no PDF em
+# backend/domains/fontesan/sources/.
+#
 # AINDA PENDENTE de revisao da responsavel tecnica (Giovanna, CRN-3 67286):
 # (a) o artigo metodo-fontesan-auditoria-vigilancia-sanitaria.md, que descreve o
 #     processo de trabalho da propria empresa e foi inferido, nao ditado por ela;
